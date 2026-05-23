@@ -1,0 +1,251 @@
+"use client";
+
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
+import {
+  Brain,
+  GraduationCap,
+  Sparkles,
+  TrendingUp,
+  ArrowRight,
+  Loader2,
+} from "lucide-react";
+import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
+import { Button } from "@/components/ui/button";
+
+interface UserProfile {
+  id: string;
+  name: string;
+  email: string;
+  version: "bangla" | "english";
+  current_class: "ssc" | "hsc_1" | "hsc_2";
+}
+
+export default function DashboardPage() {
+  const router = useRouter();
+  const [user, setUser] = useState<UserProfile | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [startingStory, setStartingStory] = useState(false);
+
+  useEffect(() => {
+    fetch("/api/auth/me")
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Unauthorized");
+        }
+        return res.json();
+      })
+      .then((data) => {
+        if (data && data.user) {
+          setUser(data.user);
+        } else {
+          router.push("/login");
+        }
+      })
+      .catch(() => {
+        toast.error("Session expired. Please login again.");
+        router.push("/login?reason=auth_required");
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, [router]);
+
+  const handleStoryQuestClick = async () => {
+    setStartingStory(true);
+    try {
+      const res = await fetch("/api/student/selection");
+      if (!res.ok) throw new Error("Failed to fetch selection");
+      const data = await res.json();
+      
+      const chapterId = data.selection?.current_chapter_id;
+      if (!chapterId) {
+        toast.error(
+          isBangla 
+            ? "আগে একটি অধ্যায় নির্বাচন করুন" 
+            : "Please select a chapter first"
+        );
+        router.push("/select-subject");
+        return;
+      }
+
+      // Start/Resume Story Quest
+      const startRes = await fetch("/api/story/start", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ chapter_id: chapterId })
+      });
+
+      if (!startRes.ok) {
+        const err = await startRes.json();
+        throw new Error(err.error || "Failed to start story quest");
+      }
+
+      const startData = await startRes.json();
+      router.push(`/story/${startData.session_id}`);
+    } catch (err: any) {
+      toast.error(err.message || "An error occurred");
+    } finally {
+      setStartingStory(false);
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-slate-50">
+        <div className="text-center space-y-3">
+          <Loader2 className="w-10 h-10 animate-spin text-primary mx-auto" />
+          <p className="text-sm font-semibold text-slate-500">
+            Loading your dashboard...
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!user) return null;
+
+  const isBangla = user.version === "bangla";
+
+  const getClassName = (cls: string) => {
+    switch (cls) {
+      case "ssc":
+        return isBangla ? "শ্রেণী ৯-১০ (এসএসসি)" : "Class 9-10 (SSC)";
+      case "hsc_1":
+        return isBangla ? "এইচএসসি ১ম বর্ষ" : "HSC 1st Year";
+      case "hsc_2":
+        return isBangla ? "এইচএসসি ২য় বর্ষ" : "HSC 2nd Year";
+      default:
+        return cls;
+    }
+  };
+
+  return (
+    <div className="flex min-h-screen flex-col bg-slate-50">
+      <Header user={user} />
+
+      <main className="flex-1 container mx-auto px-4 py-8 max-w-5xl space-y-8">
+        {/* Welcome Section */}
+        <div className="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3 pointer-events-none" />
+
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 relative z-10">
+            <div className="space-y-4">
+              <div className="inline-flex items-center px-3 py-1 rounded-full bg-primary text-white text-xs font-bold tracking-wide shadow-sm">
+                {isBangla
+                  ? "NCTB BANGLA VERSION ACTIVE"
+                  : "NCTB ENGLISH VERSION ACTIVE"}
+              </div>
+              <div>
+                <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900">
+                  {isBangla
+                    ? `স্বাগতম, ${user.name}!`
+                    : `Welcome, ${user.name}!`}
+                </h1>
+                <p className="text-slate-500 mt-2 text-lg">
+                  {isBangla
+                    ? "আপনার পার্সোনালাইজড লার্নিং জার্নি এখানে শুরু।"
+                    : "Your personalized learning journey starts here."}
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-4 bg-slate-50 border border-slate-100 p-4 rounded-2xl shadow-sm min-w-[200px]">
+              <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary shrink-0">
+                <GraduationCap className="w-6 h-6" />
+              </div>
+              <div>
+                <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">
+                  {isBangla ? "নিবন্ধিত শ্রেণী" : "REGISTERED CLASS"}
+                </p>
+                <p className="text-lg font-bold text-slate-800">
+                  {getClassName(user.current_class)}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Main Action Card */}
+        <div className="bg-gradient-to-br from-indigo-50 to-teal-50/30 rounded-3xl p-8 border border-indigo-100 shadow-sm relative overflow-hidden">
+          <div className="absolute right-0 bottom-0 opacity-10 pointer-events-none translate-x-1/4 translate-y-1/4">
+            <Brain className="w-64 h-64 text-primary" />
+          </div>
+
+          <div className="relative z-10 max-w-xl">
+            <p className="text-xs font-extrabold text-primary uppercase tracking-widest mb-2">
+              {isBangla ? "পড়াশোনা শুরু করুন" : "Start Learning"}
+            </p>
+            <h2 className="text-3xl font-extrabold text-slate-900 mb-3 leading-tight">
+              {isBangla
+                ? "বিষয় ও অধ্যায় এক্সপ্লোর করুন"
+                : "Explore Subjects and Chapters"}
+            </h2>
+            <p className="text-slate-600 mb-8 text-lg">
+              {isBangla
+                ? "পদার্থবিজ্ঞান ও জীববিজ্ঞান অধ্যায়সমূহের জন্য পার্সোনালাইজড স্টোরি কোয়েস্ট"
+                : "Personalized story quests for Physics and Biology chapters"}
+            </p>
+            <Button
+              size="lg"
+              onClick={() => router.push("/select-subject")}
+              className="bg-primary hover:bg-primary/95 text-white font-bold shadow-md shadow-primary/20 group text-lg px-8 h-14"
+            >
+              {isBangla ? "বিষয় নির্বাচন করুন" : "Select Subject"}
+              <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+            </Button>
+          </div>
+        </div>
+
+        {/* Coming Next Section */}
+        <div className="space-y-4">
+          <h3 className="text-xl font-bold text-slate-800 px-1">
+            {isBangla ? "পরবর্তী ধাপসমূহ" : "Coming Next"}
+          </h3>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm opacity-70 grayscale-[30%]">
+              <Brain className="w-8 h-8 text-primary mb-3" />
+              <p className="font-bold text-slate-800">Diagnostic Quiz</p>
+              <p className="text-sm text-slate-500 mt-1">
+                {isBangla ? "আপনার জ্ঞান মানচিত্র" : "Your knowledge map"}
+              </p>
+            </div>
+            <div 
+              onClick={handleStoryQuestClick}
+              className={`bg-white p-5 rounded-2xl border border-slate-200 shadow-sm transition-all duration-200 cursor-pointer relative overflow-hidden group
+                ${startingStory 
+                  ? 'opacity-80 cursor-wait' 
+                  : 'hover:border-primary/50 hover:shadow-md hover:-translate-y-0.5'
+                }
+              `}
+            >
+              {startingStory && (
+                <div className="absolute inset-0 bg-slate-50/50 flex items-center justify-center z-10">
+                  <Loader2 className="w-6 h-6 animate-spin text-primary" />
+                </div>
+              )}
+              <Sparkles className="w-8 h-8 text-primary mb-3 group-hover:scale-110 transition-transform" />
+              <p className="font-bold text-slate-800">Story Quest</p>
+              <p className="text-sm text-slate-500 mt-1">
+                {isBangla
+                  ? "অভিজ্ঞতার মাধ্যমে শেখা"
+                  : "Learn through experience"}
+              </p>
+            </div>
+            <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm opacity-70 grayscale-[30%]">
+              <TrendingUp className="w-8 h-8 text-primary mb-3" />
+              <p className="font-bold text-slate-800">Retention Tracker</p>
+              <p className="text-sm text-slate-500 mt-1">
+                {isBangla ? "ভুলে যাওয়া পরাজিত করুন" : "Defeat forgetting"}
+              </p>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <Footer />
+    </div>
+  );
+}
