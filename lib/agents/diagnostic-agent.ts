@@ -47,11 +47,11 @@ export async function generateDiagnosticQuestions(
    Description (EN): ${c.description_en}`
   ).join('\n\n');
 
-  const langInstruction = version === 'bangla'
-    ? 'Generate questions in pure Bangla. Use Bangla numerals (০-৯) in numbers. Bangladesh context.'
-    : 'Generate questions in clear English. Bangladesh context examples preferred.';
+   const langInstruction = version === 'bangla'
+     ? 'Generate questions in pure Bangla. Use Bangla numerals (০-৯) in answer options, but not in question framing. Focus on Bangladeshi context for subject matter, not scenario-based questions.'
+     : 'Generate questions in clear English. Focus on Bangladeshi context for subject matter, not scenario-based questions.';
 
-  const prompt = `You are an expert NCTB curriculum-aware educator for Bangladesh Class 9-10 (SSC) students.
+   const prompt = `You are an expert NCTB curriculum-aware educator for Bangladesh Class 9-10 (SSC) students.
 
 CHAPTER: ${chapter.title_en} (${chapter.title_bn})
 SUBJECT: ${chapter.subjects.title_en}
@@ -62,10 +62,13 @@ ${conceptsContext}
 
 YOUR TASK:
 Generate EXACTLY 6 multiple-choice questions for a diagnostic assessment.
+- Each question must be ONE SHORT LINE (under 15 words).
+- Focus on FACTUAL recall, definitions, formulas, or unit-based questions.
+- AVOID scenarios, character names, or village context.
+- Mix question types: 2x Definition, 2x Formula/Unit, 1x True/False or Identification, 1x Direct calculation (very simple).
 - ${langInstruction}
 - Each question links to ONE concept (use the Concept ID)
 - 2 easy (difficulty 1-2), 2 medium (3), 2 hard (4-5)
-- Real-world Bangladeshi scenarios (rickshaw, paddy field, kuya, village, etc.)
 - 4 options (a, b, c, d), only ONE correct
 - Include brief explanation (1-2 sentences)
 - Make distractors plausible (not obviously wrong)

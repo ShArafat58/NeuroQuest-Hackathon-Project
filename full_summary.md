@@ -6,6 +6,18 @@ Welcome to **NeuroQuest**, Bangladesh's first AI-native narrative learning platf
 
 ## Recent Updates Log
 
+### Date: 23 May 2026
+### Title: Quiz Question Style Refactor
+Changes: 
+- Diagnostic quiz now generates simple factual one-line questions
+- Removed scenario-based framing that overlapped with Story Quest experience
+- Maintained 6-question structure with 2-easy/2-medium/2-hard difficulty split
+- Story Quest remains scenario-based for immersive learning
+- Two assessments now feel clearly differentiated
+Files modified:
+- lib/agents/diagnostic-agent.ts (Gemini prompt text only)
+- full_summary.md (this log entry)
+
 ### 1. Story Quest Backend APIs Built
 - **`POST /api/story/start`**: Initiates or resumes a story session for a chapter. Integrates edge-compatible JWT cookie validation (`neuroquest_session`), fetches the student's language version from `users.version` ('bangla' or 'english'), creates new active sessions (defaulting `current_scene_index` to `0` to match database schema), and returns the first or resumed scene in a cheat-proof format (excludes correct option and explanation fields).
 - **`POST /api/story/submit-choice`**: Receives student choices (`a`, `b`, or `c`), verifies session ownership and active status, computes correctness, logs response into `story_progress` using `completed_at`, updates the session metadata (`scenes_completed`, `correct_choices`, `current_scene_index` incremented or marked `status = 'completed'` on scene 5), and returns bilingual correctness data along with detailed explanations.
