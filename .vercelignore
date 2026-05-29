@@ -1,0 +1,10 @@
+# MCP Server is a separate Node.js project — not part of Next.js
+mcp-server/
+
+# Local environment files
+.env.local
+.env
+
+# Build artifacts
+dist/
+*.log
