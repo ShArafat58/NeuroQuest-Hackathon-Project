@@ -37,7 +37,7 @@ export async function sendVerificationEmail(
           </p>
         </div>
         <div style="margin-top: 30px; border-top: 1px solid #e2e8f0; padding-top: 20px; text-align: center; color: #94a3b8; font-size: 12px; line-height: 1.5;">
-          <p style="margin: 0; font-weight: 600; color: #64748b;">NeuroQuest — স্মৃতিযোদ্ধা — Team Hackers</p>
+          <p style="margin: 0; font-weight: 600; color: #64748b;">NeuroQuest — স্মৃতিযোদ্ধা — Team Buddhi.exe</p>
           <p style="margin: 4px 0 0 0;">Infinity AI BuildFest 2026 — BRAC University</p>
         </div>
       </div>
@@ -61,7 +61,7 @@ export async function sendVerificationEmail(
           </p>
         </div>
         <div style="margin-top: 30px; border-top: 1px solid #e2e8f0; padding-top: 20px; text-align: center; color: #94a3b8; font-size: 12px; line-height: 1.5;">
-          <p style="margin: 0; font-weight: 600; color: #64748b;">NeuroQuest — স্মৃতিযোদ্ধা — Team Hackers</p>
+          <p style="margin: 0; font-weight: 600; color: #64748b;">NeuroQuest — স্মৃতিযোদ্ধা — Team Buddhi.exe</p>
           <p style="margin: 4px 0 0 0;">Infinity AI BuildFest 2026 — BRAC University</p>
         </div>
       </div>
@@ -126,7 +126,7 @@ export async function sendResetEmail(
           </p>
         </div>
         <div style="margin-top: 30px; border-top: 1px solid #e2e8f0; padding-top: 20px; text-align: center; color: #94a3b8; font-size: 12px; line-height: 1.5;">
-          <p style="margin: 0; font-weight: 600; color: #64748b;">NeuroQuest — স্মৃতিযোদ্ধা — Team Hackers</p>
+          <p style="margin: 0; font-weight: 600; color: #64748b;">NeuroQuest — স্মৃতিযোদ্ধা — Team Buddhi.exe</p>
           <p style="margin: 4px 0 0 0;">Infinity AI BuildFest 2026 — BRAC University</p>
         </div>
       </div>
@@ -150,7 +150,7 @@ export async function sendResetEmail(
           </p>
         </div>
         <div style="margin-top: 30px; border-top: 1px solid #e2e8f0; padding-top: 20px; text-align: center; color: #94a3b8; font-size: 12px; line-height: 1.5;">
-          <p style="margin: 0; font-weight: 600; color: #64748b;">NeuroQuest — স্মৃতিযোদ্ধা — Team Hackers</p>
+          <p style="margin: 0; font-weight: 600; color: #64748b;">NeuroQuest — স্মৃতিযোদ্ধা — Team Buddhi.exe</p>
           <p style="margin: 4px 0 0 0;">Infinity AI BuildFest 2026 — BRAC University</p>
         </div>
       </div>

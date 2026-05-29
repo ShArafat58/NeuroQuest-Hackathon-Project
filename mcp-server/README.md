@@ -2,7 +2,7 @@
 
 A standalone Model Context Protocol (MCP) server that exposes NeuroQuest's NCTB curriculum data — subjects, chapters, concepts, and story scenes — to external AI tools such as Cursor, Claude Desktop, and custom agents. It uses read-only Supabase access with the ANON key and communicates via the MCP stdio transport.
 
-Built for **Infinity AI BuildFest 2026 — Team Hackers, BRAC University**.
+Built for **Infinity AI BuildFest 2026 — Team Buddhi.exe, BRAC University**.
 
 ---
 

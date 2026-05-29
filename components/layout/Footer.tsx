@@ -8,7 +8,7 @@ export default function Footer() {
           <strong>NeuroQuest</strong> &copy; {new Date().getFullYear()} &mdash; All Rights Reserved.
         </p>
         <p className="mt-2 md:mt-0 text-center md:text-right font-medium">
-          Team Hackers &bull; Infinity AI BuildFest 2026 &bull; BRAC University
+          Team Buddhi.exe &bull; Infinity AI BuildFest 2026 &bull; BRAC University
         </p>
       </div>
     </footer>
