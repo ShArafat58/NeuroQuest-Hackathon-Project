@@ -1,0 +1,23 @@
+{
+  "name": "neuroquest-curriculum-mcp",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "tsx watch src/index.ts",
+    "inspect": "node scripts/inspect-schema.mjs"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "latest",
+    "@supabase/supabase-js": "latest",
+    "dotenv": "latest"
+  },
+  "devDependencies": {
+    "typescript": "latest",
+    "@types/node": "latest",
+    "tsx": "latest"
+  }
+}

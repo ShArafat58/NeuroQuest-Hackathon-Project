@@ -283,3 +283,35 @@ Open [http://localhost:3000](http://localhost:3000) to experience NeuroQuest.
 ---
 
 *NeuroQuest: Revolutionizing education in Bangladesh with AI-powered, story-driven learning paths.*
+
+---
+
+## MCP Server Integration (Added in this session)
+
+Built a standalone Model Context Protocol (MCP) server in the `mcp-server/` folder to expose NeuroQuest's NCTB curriculum data to external AI tools (Cursor, Claude Desktop, custom agents).
+
+**What was added:**
+- New folder: `mcp-server/` (fully isolated from main Next.js app)
+- Standalone Node.js TypeScript subproject with its own package.json, tsconfig.json, and node_modules
+- 4 MCP tools exposed via stdio transport:
+  - `list_subjects` — returns all subjects (Physics, Biology)
+  - `list_chapters` — returns chapters for a given subject_id
+  - `get_concept` — returns concept details by concept_id
+  - `list_story_scenes` — returns story scenes for a given chapter_id
+- Read-only Supabase access using ANON key (never service role)
+- Smoke-test script in `mcp-server/scripts/inspect-schema.mjs`
+- README.md inside mcp-server/ with setup instructions
+
+**What was NOT changed:**
+- Zero modifications to the main Next.js app
+- Zero changes to root package.json, middleware.ts, .env.local, or any existing file
+- Main app's database, auth, and gameplay logic untouched
+
+**How to verify:**
+```bash
+cd mcp-server && npm run build && node dist/index.js
+```
+Should print: "NeuroQuest Curriculum MCP Server running on stdio"
+
+**Cursor integration:**
+Config added to `~/.cursor/mcp.json` (or `%APPDATA%\Cursor\mcp.json` on Windows) pointing to `mcp-server/dist/index.js`. Tested by querying "list NeuroQuest subjects using the neuroquest-curriculum MCP tool" in Cursor.
