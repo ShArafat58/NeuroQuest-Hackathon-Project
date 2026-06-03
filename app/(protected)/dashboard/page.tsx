@@ -94,7 +94,7 @@ export default function DashboardPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-slate-50">
+      <div className="min-h-screen flex items-center justify-center bg-transparent">
         <div className="text-center space-y-3">
           <Loader2 className="w-10 h-10 animate-spin text-primary mx-auto" />
           <p className="text-sm font-semibold text-slate-500">
@@ -129,17 +129,17 @@ export default function DashboardPage() {
   };
 
   return (
-    <div className="flex min-h-screen flex-col bg-slate-50">
+    <div className="flex min-h-screen flex-col bg-transparent">
       <Header user={user} />
 
       <main className="flex-1 container mx-auto px-4 py-8 max-w-5xl space-y-8">
         {/* Welcome Section */}
-        <div className="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm relative overflow-hidden">
+        <div className="bg-white rounded-2xl p-8 border border-gray-100 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 relative overflow-hidden">
           <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3 pointer-events-none" />
 
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 relative z-10">
             <div className="space-y-4">
-              <div className="inline-flex items-center px-3 py-1 rounded-full bg-primary text-white text-xs font-bold tracking-wide shadow-sm">
+              <div className="inline-flex items-center px-3 py-1 rounded-full bg-gradient-to-r from-[#6D5EF5] to-[#5B8DEF] text-white text-xs font-bold tracking-wide shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
                 {isIELTS
                   ? "IELTS PREP ACTIVE"
                   : isMedical
@@ -162,7 +162,7 @@ export default function DashboardPage() {
               </div>
             </div>
 
-            <div className="flex items-center gap-4 bg-slate-50 border border-slate-100 p-4 rounded-2xl shadow-sm min-w-[200px]">
+            <div className="flex items-center gap-4 bg-transparent border border-gray-100 p-4 rounded-2xl shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 min-w-[200px]">
               <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary shrink-0">
                 <GraduationCap className="w-6 h-6" />
               </div>
@@ -179,13 +179,13 @@ export default function DashboardPage() {
         </div>
 
         {/* Main Action Card */}
-        <div className="bg-gradient-to-br from-indigo-50 to-teal-50/30 rounded-3xl p-8 border border-indigo-100 shadow-sm relative overflow-hidden">
+        <div className="bg-gradient-to-br from-indigo-50 to-teal-50/30 rounded-2xl p-8 border border-gray-100 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 relative overflow-hidden">
           <div className="absolute right-0 bottom-0 opacity-10 pointer-events-none translate-x-1/4 translate-y-1/4">
             <Brain className="w-64 h-64 text-primary" />
           </div>
 
           <div className="relative z-10 max-w-xl">
-            <p className="text-xs font-extrabold text-primary uppercase tracking-widest mb-2">
+            <p className="text-xs font-extrabold text-purple-500 uppercase tracking-wider mb-2">
               {isBangla ? "পড়াশোনা শুরু করুন" : "Start Learning"}
             </p>
             <h2 className="text-3xl font-extrabold text-slate-900 mb-3 leading-tight">
@@ -213,7 +213,7 @@ export default function DashboardPage() {
                   isMedical ? "/medical" : isIELTS ? "/ielts" : "/select-subject"
                 )
               }
-              className="bg-primary hover:bg-primary/95 text-white font-bold shadow-md shadow-primary/20 group text-lg px-8 h-14"
+              className="bg-gradient-to-r from-[#6D5EF5] to-[#5B8DEF] text-white hover:shadow-lg hover:shadow-purple-500/25 transition-all duration-200 font-bold shadow-md shadow-primary/20 group text-lg px-8 h-14"
             >
               {isIELTS || isMedical
                 ? "Select Module"
@@ -237,7 +237,7 @@ export default function DashboardPage() {
               {isBangla ? "পরবর্তী ধাপসমূহ" : "Coming Next"}
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm opacity-70 grayscale-[30%]">
+              <div className="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 opacity-70 grayscale-[30%]">
                 <Brain className="w-8 h-8 text-primary mb-3" />
                 <p className="font-bold text-slate-800">Diagnostic Quiz</p>
                 <p className="text-sm text-slate-500 mt-1">
@@ -246,7 +246,7 @@ export default function DashboardPage() {
               </div>
               <div
                 onClick={handleStoryQuestClick}
-                className={`bg-white p-5 rounded-2xl border border-slate-200 shadow-sm transition-all duration-200 cursor-pointer relative overflow-hidden group
+                className={`bg-white p-5 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 transition-all duration-200 cursor-pointer relative overflow-hidden group
                   ${startingStory
                     ? "opacity-80 cursor-wait"
                     : "hover:border-primary/50 hover:shadow-md hover:-translate-y-0.5"
@@ -254,7 +254,7 @@ export default function DashboardPage() {
                 `}
               >
                 {startingStory && (
-                  <div className="absolute inset-0 bg-slate-50/50 flex items-center justify-center z-10">
+                  <div className="absolute inset-0 bg-transparent/50 flex items-center justify-center z-10">
                     <Loader2 className="w-6 h-6 animate-spin text-primary" />
                   </div>
                 )}
@@ -264,7 +264,7 @@ export default function DashboardPage() {
                   {isBangla ? "অভিজ্ঞতার মাধ্যমে শেখা" : "Learn through experience"}
                 </p>
               </div>
-              <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm opacity-70 grayscale-[30%]">
+              <div className="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 opacity-70 grayscale-[30%]">
                 <TrendingUp className="w-8 h-8 text-primary mb-3" />
                 <p className="font-bold text-slate-800">Retention Tracker</p>
                 <p className="text-sm text-slate-500 mt-1">

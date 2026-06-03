@@ -69,7 +69,7 @@ export default function QuizResultsPage({ params }: { params: { session_id: stri
 
   if (loading || !user || !results) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-slate-50">
+      <div className="flex min-h-screen items-center justify-center bg-transparent">
         <Loader2 className="w-10 h-10 animate-spin text-primary" />
       </div>
     );
@@ -105,14 +105,14 @@ export default function QuizResultsPage({ params }: { params: { session_id: stri
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 py-12 px-4 flex flex-col items-center">
+    <div className="min-h-screen bg-transparent py-12 px-4 flex flex-col items-center">
       <div className="w-full max-w-4xl space-y-8">
         
         {/* Hero Section */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-white rounded-3xl p-10 border border-slate-200 shadow-sm text-center"
+          className="bg-white rounded-2xl p-10 border border-gray-100 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 text-center"
         >
           <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900 mb-2">
             {isBangla ? "তোমার জ্ঞান-মানচিত্র" : "Your Knowledge Map"}
@@ -138,7 +138,7 @@ export default function QuizResultsPage({ params }: { params: { session_id: stri
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.2 }}
-            className="lg:col-span-2 bg-white rounded-3xl p-8 border border-slate-200 shadow-sm"
+            className="lg:col-span-2 bg-white rounded-2xl p-8 border border-gray-100 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
           >
             <h2 className="text-xl font-bold text-slate-800 mb-6">
               {isBangla ? "ধারণা-ভিত্তিক বিশ্লেষণ" : "Concept-wise Analysis"}

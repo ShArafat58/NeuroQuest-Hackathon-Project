@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { Brain, LogOut, User, Globe, Settings, ChevronDown } from "lucide-react";
+import { Brain, LogOut, User, Globe, Settings, ChevronDown, Flame, Zap, TrendingUp } from "lucide-react";
 import { toast } from "sonner";
 import {
   DropdownMenu,
@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
+import { getRank } from "@/lib/rank";
 
 interface HeaderProps {
   user?: {
@@ -26,10 +27,17 @@ interface HeaderProps {
   };
 }
 
+const toBnNum = (num: number) => {
+  const bnDigits = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
+  return num.toString().split('').map(n => bnDigits[parseInt(n)] || n).join('');
+};
+
 export default function Header({ user: propUser }: HeaderProps) {
   const router = useRouter();
   const [user, setUser] = useState(propUser || null);
   const [currentLang, setCurrentLang] = useState<"bangla" | "english">("bangla");
+  const [stats, setStats] = useState<{ total_xp: number; current_streak: number; longest_streak: number } | null>(null);
+  const [loadingStats, setLoadingStats] = useState(false);
 
   // Fetch current user details if not passed as a prop
   useEffect(() => {
@@ -44,9 +52,25 @@ export default function Header({ user: propUser }: HeaderProps) {
         })
         .catch(() => {});
     } else {
+      setUser(propUser);
       setCurrentLang(propUser.version);
     }
   }, [propUser]);
+
+  useEffect(() => {
+    if (user) {
+      setLoadingStats(true);
+      fetch("/api/user/stats")
+        .then((res) => (res.ok ? res.json() : null))
+        .then((data) => {
+          if (data && data.success) {
+            setStats(data);
+          }
+        })
+        .catch(() => {})
+        .finally(() => setLoadingStats(false));
+    }
+  }, [user]);
 
   const handleLogout = async () => {
     try {
@@ -68,16 +92,38 @@ export default function Header({ user: propUser }: HeaderProps) {
     }
   };
 
-  const toggleLanguage = () => {
+  const toggleLanguage = async () => {
     const nextLang = currentLang === "bangla" ? "english" : "bangla";
     setCurrentLang(nextLang);
-    toast.success(
-      nextLang === "bangla"
-        ? "ভাষা পরিবর্তন করে বাংলা করা হয়েছে"
-        : "Language switched to English"
-    );
-    // TODO: Persist language preference to user profile in DB via PATCH /api/auth/me or similar endpoint.
-    // Currently this only updates local UI state for the current session.
+    
+    if (user) {
+      try {
+        const res = await fetch("/api/user/change-version", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ new_version: nextLang }),
+        });
+        if (res.ok) {
+          toast.success(
+            nextLang === "bangla"
+              ? "ভাষা পরিবর্তন করে বাংলা করা হয়েছে"
+              : "Language switched to English"
+          );
+          window.location.reload();
+        } else {
+          toast.error("Failed to switch language");
+        }
+      } catch (err) {
+        console.error(err);
+        toast.error("Failed to switch language");
+      }
+    } else {
+      toast.success(
+        nextLang === "bangla"
+          ? "ভাষা পরিবর্তন করে বাংলা করা হয়েছে"
+          : "Language switched to English"
+      );
+    }
   };
 
   const getInitials = (name: string) => {
@@ -88,6 +134,9 @@ export default function Header({ user: propUser }: HeaderProps) {
       .slice(0, 2)
       .toUpperCase();
   };
+
+  const isBangla = user ? user.version === "bangla" : currentLang === "bangla";
+  const userRank = stats ? getRank(stats.total_xp) : null;
 
   return (
     <header className="sticky top-0 z-40 w-full border-b border-border bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60">
@@ -103,8 +152,46 @@ export default function Header({ user: propUser }: HeaderProps) {
           </div>
         </Link>
 
-        {/* Right Side: Language & User Dropdown */}
+        {/* Right Side: Stats, Language & User Dropdown */}
         <div className="flex items-center gap-4">
+          
+          {/* Stats Display */}
+          {user && (
+            <div className="flex items-center gap-2 mr-2">
+              {loadingStats && !stats ? (
+                <div className="w-24 h-8 bg-slate-100 animate-pulse rounded-full" />
+              ) : stats && userRank ? (
+                <>
+                  {/* Streak Pill */}
+                  <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm" style={{ backgroundColor: '#FFF4E5', color: '#92400E' }}>
+                    <Flame className="w-4 h-4" style={{ color: '#F59E0B' }} />
+                    <span className="font-medium">
+                      {isBangla ? toBnNum(stats.current_streak) : stats.current_streak}
+                      <span className="hidden sm:inline"> {isBangla ? "দিন" : "days"}</span>
+                    </span>
+                  </div>
+                  
+                  {/* XP Pill */}
+                  <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm" style={{ backgroundColor: '#EEF0FF', color: '#3C3489' }}>
+                    <Zap className="w-4 h-4" style={{ color: '#6D5EF5' }} />
+                    <span className="font-medium">
+                      {isBangla ? toBnNum(stats.total_xp) : stats.total_xp}
+                      <span className="hidden sm:inline"> XP</span>
+                    </span>
+                  </div>
+                  
+                  {/* Rank Badge */}
+                  <div 
+                    className="hidden sm:flex items-center px-3 py-1.5 rounded-full text-sm font-medium" 
+                    style={{ backgroundColor: userRank.bg, color: userRank.color }}
+                  >
+                    {isBangla ? userRank.name : userRank.nameEn}
+                  </div>
+                </>
+              ) : null}
+            </div>
+          )}
+
           {/* Language Toggle Trigger */}
           <Button
             variant="ghost"
@@ -113,7 +200,8 @@ export default function Header({ user: propUser }: HeaderProps) {
             className="flex items-center gap-1.5 text-slate-700 hover:text-primary transition-colors text-xs font-semibold"
           >
             <Globe className="w-4 h-4 text-primary" />
-            <span>{currentLang === "bangla" ? "English" : "বাংলা"}</span>
+            <span className="hidden sm:inline">{currentLang === "bangla" ? "English" : "বাংলা"}</span>
+            <span className="sm:hidden">{currentLang === "bangla" ? "EN" : "BN"}</span>
           </Button>
 
           {/* User profile dropdown if logged in */}
@@ -126,7 +214,7 @@ export default function Header({ user: propUser }: HeaderProps) {
                       {getInitials(user.name)}
                     </AvatarFallback>
                   </Avatar>
-                  <ChevronDown className="w-4 h-4 text-slate-500" />
+                  <ChevronDown className="w-4 h-4 text-slate-500 hidden sm:block" />
                 </button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-56 mt-1 border border-border p-1 bg-white shadow-lg rounded-xl">
@@ -135,7 +223,11 @@ export default function Header({ user: propUser }: HeaderProps) {
                   <p className="text-[11px] text-slate-500 leading-none mt-1 truncate">{user.email}</p>
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator className="bg-slate-100" />
-                <DropdownMenuItem onClick={() => router.push('/settings')} className="flex items-center gap-2 px-3 py-2 text-slate-700 rounded-lg hover:bg-slate-50 cursor-pointer text-sm">
+                <DropdownMenuItem onClick={() => router.push('/progress')} className="flex items-center gap-2 px-3 py-2 text-slate-700 rounded-lg hover:bg-transparent cursor-pointer text-sm">
+                  <TrendingUp className="w-4 h-4 text-slate-500" />
+                  <span>{currentLang === "bangla" ? "আমার উন্নতি" : "My Progress"}</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => router.push('/settings')} className="flex items-center gap-2 px-3 py-2 text-slate-700 rounded-lg hover:bg-transparent cursor-pointer text-sm">
                   <Settings className="w-4 h-4 text-slate-500" />
                   <span>{currentLang === "bangla" ? "সেটিংস" : "Settings"}</span>
                 </DropdownMenuItem>
@@ -157,7 +249,7 @@ export default function Header({ user: propUser }: HeaderProps) {
                 </Button>
               </Link>
               <Link href="/signup">
-                <Button size="sm" className="bg-primary hover:bg-primary/95 text-white font-semibold text-sm">
+                <Button size="sm" className="bg-gradient-to-r from-[#6D5EF5] to-[#5B8DEF] text-white hover:shadow-lg hover:shadow-purple-500/25 transition-all duration-200 font-semibold text-sm">
                   Start Free
                 </Button>
               </Link>

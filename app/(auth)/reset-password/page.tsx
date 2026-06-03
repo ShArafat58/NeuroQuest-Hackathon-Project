@@ -71,8 +71,8 @@ function ResetPasswordContent() {
   };
 
   return (
-    <div className="min-h-screen w-full flex items-center justify-center bg-slate-50 p-6">
-      <div className="w-full max-w-md bg-white border border-slate-200/80 p-8 rounded-2xl shadow-xl shadow-slate-100/50 flex flex-col items-center">
+    <div className="min-h-screen w-full flex items-center justify-center bg-transparent p-6">
+      <div className="w-full max-w-md bg-white border border-gray-100/80 p-8 rounded-2xl shadow-xl shadow-slate-100/50 flex flex-col items-center">
         {/* Brand Header */}
         <Link href="/" className="flex items-center gap-2 mb-8">
           <Brain className="w-8 h-8 text-primary fill-primary/10" />
@@ -107,7 +107,7 @@ function ResetPasswordContent() {
                 placeholder="name@example.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="pl-10 border-slate-200"
+                className="pl-10 border-gray-100"
                 disabled={!!searchParams.get("email")}
               />
             </div>
@@ -171,7 +171,7 @@ function ResetPasswordContent() {
           <Button
             type="submit"
             disabled={isLoading}
-            className="w-full bg-primary hover:bg-primary/95 text-white font-bold h-11 shadow-md shadow-primary/10 mt-2"
+            className="w-full bg-gradient-to-r from-[#6D5EF5] to-[#5B8DEF] text-white hover:shadow-lg hover:shadow-purple-500/25 transition-all duration-200 font-bold h-11 shadow-md shadow-primary/10 mt-2"
           >
             {isLoading ? (
               <span className="flex items-center justify-center gap-2">
@@ -203,7 +203,7 @@ export default function ResetPasswordPage() {
   return (
     <Suspense
       fallback={
-        <div className="min-h-screen w-full flex items-center justify-center bg-slate-50">
+        <div className="min-h-screen w-full flex items-center justify-center bg-transparent">
           <div className="text-slate-400 text-sm font-medium">Loading...</div>
         </div>
       }

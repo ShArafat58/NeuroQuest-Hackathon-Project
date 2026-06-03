@@ -101,7 +101,7 @@ export default function SelectSubjectPage() {
 
   if (loading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-slate-50">
+      <div className="flex min-h-screen items-center justify-center bg-transparent">
         <Loader2 className="w-10 h-10 animate-spin text-primary" />
       </div>
     );
@@ -121,7 +121,7 @@ export default function SelectSubjectPage() {
   };
 
   return (
-    <div className="flex min-h-screen flex-col bg-slate-50">
+    <div className="flex min-h-screen flex-col bg-transparent">
       <Header user={user} />
 
       <main className="flex-1 container mx-auto px-4 py-8 max-w-5xl">
@@ -153,7 +153,7 @@ export default function SelectSubjectPage() {
                 href={`/select-chapter?subject=${subject.code}`}
                 className="block group"
               >
-                <div className="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 group-hover:-translate-y-1 h-full">
+                <div className="bg-white rounded-2xl p-8 border border-gray-100 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 hover:shadow-xl transition-all duration-300 group-hover:-translate-y-1 h-full">
                   <div className={`w-16 h-16 ${meta.bg} ${meta.fg} rounded-2xl flex items-center justify-center mb-6`}>
                     <Icon className="w-8 h-8" />
                   </div>

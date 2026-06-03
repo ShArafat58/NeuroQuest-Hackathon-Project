@@ -315,3 +315,48 @@ Should print: "NeuroQuest Curriculum MCP Server running on stdio"
 
 **Cursor integration:**
 Config added to `~/.cursor/mcp.json` (or `%APPDATA%\Cursor\mcp.json` on Windows) pointing to `mcp-server/dist/index.js`. Tested by querying "list NeuroQuest subjects using the neuroquest-curriculum MCP tool" in Cursor.
+
+
+---
+
+## Update — June 4, 2026 (Pre-Final Build)
+
+New features and improvements added in preparation for the BuildFest final. None of the earlier sections were modified; the following are additive.
+
+### 1. Gamification — Streak, XP & Rank
+- **Daily streak**: tracks consecutive active days via a `last_active_date` check. Resets on a missed day, updates `longest_streak`.
+- **XP system**: experience points awarded for real activity — daily login (+10), diagnostic quiz completion (+30) plus +10 per correct answer, story scene completion (+15), full story-quest completion (+50 bonus). Central logic in `lib/xp.ts`.
+- **Rank tiers** (`lib/rank.ts`): নবীন (0–499) → যোদ্ধা (500–1499) → বীর (1500–2999) → মহাবীর (3000+), bilingual names.
+- **Header display**: streak, XP, and rank shown as pills in the navbar, fully bilingual with Bengali/English numerals.
+- **DB**: 4 columns added to `users` — `total_xp`, `current_streak`, `longest_streak`, `last_active_date`.
+
+### 2. Context-Aware AI Study Assistant (Chatbot)
+- Floating chat widget on all logged-in pages (`components/ChatWidget.tsx`), backed by `app/api/chat/route.ts`.
+- Reuses the existing Gemini multi-model fallback chain.
+- **Personalized**: reads the student's weak concepts from `concept_proficiency` and tailors guidance.
+- **Site-aware**: guides users to the right page (subjects, quiz, story, settings) when they can't find something.
+- **Ethical guardrail**: never reveals direct answers to quiz questions or story-quest choices — explains the underlying concept and guides the student to reason it out. Teaches understanding, not answers.
+- Bilingual (matches the user's language).
+
+### 3. Progress Page ("My Progress")
+- New page (`/progress`) accessible from the user dropdown, backed by `app/api/user/progress/route.ts`.
+- Shows: summary stat cards (XP, streak, rank, quests completed), a concept-mastery breakdown (strong/developing/weak), and a diagnostic score trend line (from `diagnostic_sessions.overall_score` over time).
+- All data is real — no mocked values. Fully bilingual.
+
+### 4. UI/UX Polish
+- **Light-theme premium polish**: layered shadows, gradient primary buttons with glow, refined typography hierarchy, hover micro-interactions, softer page backgrounds.
+- **Lightweight interactive parallax background** (`components/ParallaxBackground.tsx`): mouse-driven depth effect using soft radial glow blobs and CSS transforms with requestAnimationFrame easing — NO three.js/WebGL, keeping it low-bandwidth-friendly. Respects `prefers-reduced-motion` and disables on touch devices. Mounted on all protected pages except story (and on the landing page).
+- **Landing page**: enlarged hero illustration, more eye-catching "How NeuroQuest Works" section.
+- **Settings page**: redesigned section headers, consistent cards, improved inputs/pills/buttons.
+
+### Files Added
+- `lib/xp.ts`, `lib/rank.ts`
+- `app/api/user/stats/route.ts`, `app/api/user/progress/route.ts`, `app/api/chat/route.ts`
+- `components/ChatWidget.tsx`, `components/ParallaxBackground.tsx`
+- `app/(protected)/progress/page.tsx`
+
+### Files Modified (additive hooks / styling only)
+- `app/api/quiz/[session_id]/complete/route.ts`, `app/api/story/submit-choice/route.ts` (XP hooks)
+- `app/(protected)/layout.tsx` (mounts chat widget + parallax background)
+- Header / navbar component (streak/XP/rank + bilingual)
+- User dropdown (progress link), landing page, settings page, global styles

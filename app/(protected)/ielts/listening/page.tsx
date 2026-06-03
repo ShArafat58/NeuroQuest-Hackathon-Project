@@ -76,7 +76,7 @@ export default function IeltsListeningPage() {
             : 0;
 
     return (
-        <div className="flex min-h-screen flex-col bg-slate-50">
+        <div className="flex min-h-screen flex-col bg-transparent">
             <Header user={user} />
             <main className="flex-1 container mx-auto px-4 py-8 max-w-3xl">
                 <div className="mb-6 flex items-center justify-between">
@@ -109,7 +109,7 @@ export default function IeltsListeningPage() {
                 {data && !loading && (
                     <>
                         {/* Audio player */}
-                        <div className="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm mb-6 text-center">
+                        <div className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 mb-6 text-center">
                             <p className="text-slate-500 text-sm mb-3">🎧 Recording: {data.title}</p>
                             <button
                                 onClick={playAudio}
@@ -129,7 +129,7 @@ export default function IeltsListeningPage() {
                                 const opts = q.type === "tfng" ? TFNG_OPTIONS : q.options || [];
                                 const correct = checked && answers[i] === q.answer;
                                 return (
-                                    <div key={i} className="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm">
+                                    <div key={i} className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
                                         <p className="font-medium text-slate-800 mb-3">
                                             {i + 1}. {q.question}
                                         </p>
@@ -137,7 +137,7 @@ export default function IeltsListeningPage() {
                                             {opts.map((opt: string, j: number) => (
                                                 <label
                                                     key={j}
-                                                    className={`flex items-center gap-2 rounded-xl border p-3 cursor-pointer text-sm ${answers[i] === opt ? "border-indigo-400 bg-indigo-50" : "border-slate-200"
+                                                    className={`flex items-center gap-2 rounded-xl border p-3 cursor-pointer text-sm ${answers[i] === opt ? "border-indigo-400 bg-indigo-50" : "border-gray-100"
                                                         }`}
                                                 >
                                                     <input
@@ -177,14 +177,14 @@ export default function IeltsListeningPage() {
                             </button>
                         ) : (
                             <>
-                                <div className="mt-6 bg-white rounded-3xl p-6 border border-slate-200 shadow-sm text-center">
+                                <div className="mt-6 bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 text-center">
                                     <p className="text-slate-500 text-sm">Your score</p>
                                     <p className="text-4xl font-extrabold text-indigo-600">
                                         {score} / {data.questions.length}
                                     </p>
                                 </div>
                                 {/* Reveal transcript after checking */}
-                                <div className="mt-4 bg-white rounded-3xl p-6 border border-slate-200 shadow-sm">
+                                <div className="mt-4 bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
                                     <h3 className="font-bold text-slate-900 mb-2">Transcript</h3>
                                     <p className="text-slate-700 leading-relaxed whitespace-pre-line">{data.passage}</p>
                                 </div>

@@ -84,10 +84,10 @@ function LoginContent() {
   };
 
   return (
-    <div className="min-h-screen w-full flex items-center justify-center bg-slate-50 p-6 flex-col">
+    <div className="min-h-screen w-full flex items-center justify-center bg-transparent p-6 flex-col">
       {/* Banner placed above the card */}
       {showBanner && (
-        <div className="w-full max-w-md mb-4 bg-indigo-50 border border-indigo-200 text-indigo-800 p-4 rounded-xl flex items-center justify-between shadow-sm transition-all animate-in fade-in slide-in-from-top-2 duration-300">
+        <div className="w-full max-w-md mb-4 bg-indigo-50 border border-indigo-200 text-indigo-800 p-4 rounded-xl flex items-center justify-between shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 transition-all animate-in fade-in slide-in-from-top-2 duration-300">
           <div className="flex items-center gap-2.5">
             <Info className="w-5 h-5 text-primary shrink-0" />
             <span className="text-xs sm:text-sm font-semibold">{bannerText}</span>
@@ -102,7 +102,7 @@ function LoginContent() {
       )}
 
       {/* Login Card */}
-      <div className="w-full max-w-md bg-white border border-slate-200/80 p-8 rounded-2xl shadow-xl shadow-slate-100/50 flex flex-col">
+      <div className="w-full max-w-md bg-white border border-gray-100/80 p-8 rounded-2xl shadow-xl shadow-slate-100/50 flex flex-col">
         {/* Brand Header */}
         <Link href="/" className="flex items-center gap-2 mb-8 self-center">
           <Brain className="w-8 h-8 text-primary fill-primary/10" />
@@ -169,7 +169,7 @@ function LoginContent() {
           <Button
             type="submit"
             disabled={isLoading}
-            className="w-full bg-primary hover:bg-primary/95 text-white font-bold h-11 shadow-md shadow-primary/10 mt-2"
+            className="w-full bg-gradient-to-r from-[#6D5EF5] to-[#5B8DEF] text-white hover:shadow-lg hover:shadow-purple-500/25 transition-all duration-200 font-bold h-11 shadow-md shadow-primary/10 mt-2"
           >
             {isLoading ? (
               <span className="flex items-center justify-center gap-2">
@@ -201,7 +201,7 @@ export default function LoginPage() {
   return (
     <Suspense
       fallback={
-        <div className="min-h-screen w-full flex items-center justify-center bg-slate-50">
+        <div className="min-h-screen w-full flex items-center justify-center bg-transparent">
           <div className="text-slate-400 text-sm font-medium">Loading...</div>
         </div>
       }

@@ -46,6 +46,26 @@ export async function POST(
       })
       .eq('id', session_id);
 
+    // --- XP LOGIC ---
+    try {
+      const { awardXp } = require('@/lib/xp');
+      
+      // We need to know how many correct answers there were. We can count from diagnostic_answers.
+      const { data: answers } = await supabaseServer
+        .from('diagnostic_answers')
+        .select('is_correct')
+        .eq('session_id', session_id)
+        .eq('is_correct', true);
+        
+      const correctAnswersCount = answers ? answers.length : 0;
+      const totalXpEarned = 30 + (correctAnswersCount * 10);
+      
+      await awardXp(payload.userId, totalXpEarned);
+    } catch (xpError) {
+      console.error('Failed to award XP for quiz completion:', xpError);
+    }
+    // ----------------
+
     return NextResponse.json({ overall_score, concept_scores, insight });
 
   } catch (error: unknown) {

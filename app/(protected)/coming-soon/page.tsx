@@ -28,7 +28,7 @@ export default function ComingSoonPage() {
 
   if (loading || !user) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-slate-50">
+      <div className="flex min-h-screen items-center justify-center bg-transparent">
         <Loader2 className="w-10 h-10 animate-spin text-primary" />
       </div>
     );
@@ -37,11 +37,11 @@ export default function ComingSoonPage() {
   const isBangla = user.version === "bangla";
 
   return (
-    <div className="flex min-h-screen flex-col bg-slate-50">
+    <div className="flex min-h-screen flex-col bg-transparent">
       <Header user={user} />
 
       <main className="flex-1 flex flex-col items-center justify-center container mx-auto px-4 py-12 max-w-3xl text-center">
-        <div className="bg-white rounded-3xl p-10 md:p-16 border border-slate-200 shadow-xl w-full">
+        <div className="bg-white rounded-2xl p-10 md:p-16 border border-gray-100 shadow-xl w-full">
           <div className="w-24 h-24 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-8 animate-bounce">
             <Sparkles className="w-12 h-12 text-primary" />
           </div>

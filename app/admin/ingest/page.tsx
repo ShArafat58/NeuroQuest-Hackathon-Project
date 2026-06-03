@@ -67,7 +67,7 @@ export default function AdminIngestPage() {
 
   return (
     <div className="container mx-auto py-10 px-4 max-w-4xl">
-      <div className="mb-8 p-4 bg-slate-100 border border-slate-200 rounded-lg text-sm text-slate-600 flex items-start gap-3">
+      <div className="mb-8 p-4 bg-slate-100 border border-gray-100 rounded-lg text-sm text-slate-600 flex items-start gap-3">
         <Database className="w-5 h-5 text-primary shrink-0 mt-0.5" />
         <div>
           <p className="font-bold text-slate-800 mb-1">Admin PDF Ingestion Pipeline</p>
@@ -94,7 +94,7 @@ export default function AdminIngestPage() {
           ) : (
             chapters.map((chapter) => (
               <Card key={chapter.id} className="overflow-hidden">
-                <CardHeader className="bg-slate-50 border-b py-4">
+                <CardHeader className="bg-transparent border-b py-4">
                   <div className="flex justify-between items-center">
                     <div>
                       <CardTitle className="text-lg flex items-center gap-2">

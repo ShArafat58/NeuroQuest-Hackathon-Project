@@ -102,7 +102,7 @@ function ChapterSelectionContent() {
 
   if (loading || !user) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-slate-50">
+      <div className="flex min-h-screen items-center justify-center bg-transparent">
         <Loader2 className="w-10 h-10 animate-spin text-primary" />
       </div>
     );
@@ -126,7 +126,7 @@ function ChapterSelectionContent() {
   };
 
   return (
-    <div className="flex min-h-screen flex-col bg-slate-50">
+    <div className="flex min-h-screen flex-col bg-transparent">
       <Header user={user} />
 
       <main className="flex-1 container mx-auto px-4 py-8 max-w-4xl">
@@ -157,7 +157,7 @@ function ChapterSelectionContent() {
             const pageEnd = isBangla ? convertToBanglaNumber(chapter.page_end) : chapter.page_end;
 
             return (
-              <div key={chapter.id} className="bg-white rounded-3xl p-6 md:p-8 border border-slate-200 shadow-sm flex flex-col md:flex-row gap-6 items-start md:items-center">
+              <div key={chapter.id} className="bg-white rounded-2xl p-6 md:p-8 border border-gray-100 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 flex flex-col md:flex-row gap-6 items-start md:items-center">
                 <div className="w-16 h-16 shrink-0 bg-primary/10 text-primary rounded-2xl flex items-center justify-center text-2xl font-black">
                   {chapNum}
                 </div>
@@ -182,7 +182,7 @@ function ChapterSelectionContent() {
                 <div className="w-full md:w-auto shrink-0 mt-4 md:mt-0">
                   <Button 
                     size="lg"
-                    className="w-full md:w-auto bg-primary hover:bg-primary/95 text-white shadow-md font-bold px-8"
+                    className="w-full md:w-auto bg-gradient-to-r from-[#6D5EF5] to-[#5B8DEF] text-white hover:shadow-lg hover:shadow-purple-500/25 transition-all duration-200 shadow-md font-bold px-8"
                     onClick={() => handleSelectChapter(chapter.id)}
                     disabled={selectingId === chapter.id}
                   >
@@ -201,7 +201,7 @@ function ChapterSelectionContent() {
           })}
 
           {/* Coming Soon Muted Card */}
-          <div className="bg-slate-50 rounded-3xl p-6 md:p-8 border border-slate-200 shadow-sm flex flex-col md:flex-row gap-6 items-center text-center md:text-left opacity-70">
+          <div className="bg-transparent rounded-2xl p-6 md:p-8 border border-gray-100 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 flex flex-col md:flex-row gap-6 items-center text-center md:text-left opacity-70">
             <div className="w-16 h-16 shrink-0 bg-slate-200 text-slate-500 rounded-2xl flex items-center justify-center">
               <Lock className="w-8 h-8" />
             </div>
@@ -228,7 +228,7 @@ function ChapterSelectionContent() {
 export default function SelectChapterPage() {
   return (
     <Suspense fallback={
-      <div className="flex min-h-screen items-center justify-center bg-slate-50">
+      <div className="flex min-h-screen items-center justify-center bg-transparent">
         <Loader2 className="w-10 h-10 animate-spin text-primary" />
       </div>
     }>

@@ -6,7 +6,7 @@ import { ArrowLeft, Activity } from 'lucide-react';
 
 export default function MedicalHub() {
     return (
-        <div className="flex min-h-screen flex-col bg-slate-50">
+        <div className="flex min-h-screen flex-col bg-transparent">
             <Header />
             <main className="flex-1 container mx-auto px-4 py-8 max-w-5xl space-y-8">
                 <div className="flex items-center gap-4 mb-2">
@@ -33,7 +33,7 @@ export default function MedicalHub() {
                         {/* Chapter 1 — clickable */}
                         <Link
                             href="/medical/metabolic-response"
-                            className="block bg-white rounded-3xl p-8 border border-slate-200 shadow-sm hover:shadow-xl transition-all"
+                            className="block bg-white rounded-2xl p-8 border border-gray-100 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 hover:shadow-xl transition-all"
                         >
                             <div className="flex items-center mb-4">
                                 <Activity className="w-6 h-6 text-primary mr-2" />
@@ -47,7 +47,7 @@ export default function MedicalHub() {
                         </Link>
 
                         {/* Coming soon placeholder */}
-                        <div className="relative bg-white rounded-3xl p-8 border border-dashed border-slate-200 shadow-sm opacity-60 flex items-center justify-center min-h-[140px]">
+                        <div className="relative bg-white rounded-2xl p-8 border border-dashed border-gray-100 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 opacity-60 flex items-center justify-center min-h-[140px]">
                             <p className="text-slate-400 text-sm text-center">More chapters coming soon</p>
                         </div>
                     </div>

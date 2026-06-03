@@ -119,7 +119,7 @@ export default function QuizPage({ params }: { params: { session_id: string } })
 
   if (loading || !user || !question || !sessionData) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-slate-50">
+      <div className="flex min-h-screen items-center justify-center bg-transparent">
         <Loader2 className="w-10 h-10 animate-spin text-primary" />
       </div>
     );
@@ -151,7 +151,7 @@ export default function QuizPage({ params }: { params: { session_id: string } })
   const isLastQuestion = question.question_index === sessionData.total_questions - 1;
 
   return (
-    <div className="min-h-screen bg-slate-50 py-12 px-4 flex flex-col items-center">
+    <div className="min-h-screen bg-transparent py-12 px-4 flex flex-col items-center">
       <div className="w-full max-w-3xl flex-1 flex flex-col">
         
         {/* Top Bar */}
@@ -160,7 +160,7 @@ export default function QuizPage({ params }: { params: { session_id: string } })
             {isBangla ? `প্রশ্ন ${currentQNum} / ${totalQNum}` : `Question ${currentQNum} / ${totalQNum}`}
           </div>
           
-          <div className={`flex items-center gap-2 text-xl font-bold bg-white px-4 py-2 rounded-full border shadow-sm ${timerColor} ${timerPulse}`}>
+          <div className={`flex items-center gap-2 text-xl font-bold bg-white px-4 py-2 rounded-full border shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 ${timerColor} ${timerPulse}`}>
             <Clock className="w-5 h-5" />
             <span>00:{timeLeft < 10 ? `0${timeLeft}` : timeLeft}</span>
           </div>
@@ -174,7 +174,7 @@ export default function QuizPage({ params }: { params: { session_id: string } })
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, x: -20 }}
             transition={{ duration: 0.3 }}
-            className="bg-white rounded-3xl p-8 md:p-10 border border-slate-200 shadow-lg flex-1 flex flex-col"
+            className="bg-white rounded-2xl p-8 md:p-10 border border-gray-100 shadow-lg flex-1 flex flex-col"
           >
             {/* Concept Badge */}
             {conceptName && (
@@ -201,7 +201,7 @@ export default function QuizPage({ params }: { params: { session_id: string } })
                     className={`w-full text-left p-4 md:p-5 rounded-2xl border-2 transition-all duration-200 flex items-center gap-4 group
                       ${isSelected 
                         ? 'border-primary bg-primary text-white scale-[1.02] shadow-md' 
-                        : 'border-slate-200 bg-white hover:border-primary/50 hover:bg-slate-50 text-slate-700 hover:-translate-y-0.5'
+                        : 'border-gray-100 bg-white hover:border-primary/50 hover:bg-transparent text-slate-700 hover:-translate-y-0.5'
                       }
                     `}
                   >
@@ -221,7 +221,7 @@ export default function QuizPage({ params }: { params: { session_id: string } })
             </div>
 
             {/* Actions */}
-            <div className="flex justify-end pt-6 border-t border-slate-100">
+            <div className="flex justify-end pt-6 border-t border-gray-100">
               <Button
                 size="lg"
                 disabled={!selectedAnswer || submitting}

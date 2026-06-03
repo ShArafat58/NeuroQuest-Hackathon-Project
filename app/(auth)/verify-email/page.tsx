@@ -99,8 +99,8 @@ function VerifyEmailContent() {
   };
 
   return (
-    <div className="min-h-screen w-full flex items-center justify-center bg-slate-50 p-6">
-      <div className="w-full max-w-md bg-white border border-slate-200/80 p-8 rounded-2xl shadow-xl shadow-slate-100/50 flex flex-col items-center">
+    <div className="min-h-screen w-full flex items-center justify-center bg-transparent p-6">
+      <div className="w-full max-w-md bg-white border border-gray-100/80 p-8 rounded-2xl shadow-xl shadow-slate-100/50 flex flex-col items-center">
         {/* Brand Header */}
         <Link href="/" className="flex items-center gap-2 mb-8">
           <Brain className="w-8 h-8 text-primary fill-primary/10" />
@@ -111,7 +111,7 @@ function VerifyEmailContent() {
         </Link>
 
         {/* Header Icons & Headings */}
-        <div className="w-16 h-16 rounded-full bg-indigo-50 border border-indigo-100 flex items-center justify-center text-primary mb-6">
+        <div className="w-16 h-16 rounded-full bg-indigo-50 border border-gray-100 flex items-center justify-center text-primary mb-6">
           <ShieldCheck className="w-8 h-8 text-primary" />
         </div>
 
@@ -135,7 +135,7 @@ function VerifyEmailContent() {
                 id="code"
                 placeholder="123456"
                 maxLength={6}
-                className="pl-10 text-center tracking-[10px] font-mono text-lg font-bold h-11 border-slate-200"
+                className="pl-10 text-center tracking-[10px] font-mono text-lg font-bold h-11 border-gray-100"
                 {...register("code")}
               />
             </div>
@@ -147,7 +147,7 @@ function VerifyEmailContent() {
           <Button
             type="submit"
             disabled={isLoading || codeVal.length !== 6}
-            className="w-full bg-primary hover:bg-primary/95 text-white font-bold h-11 shadow-md shadow-primary/10"
+            className="w-full bg-gradient-to-r from-[#6D5EF5] to-[#5B8DEF] text-white hover:shadow-lg hover:shadow-purple-500/25 transition-all duration-200 font-bold h-11 shadow-md shadow-primary/10"
           >
             {isLoading ? (
               <span className="flex items-center justify-center gap-2">
@@ -192,7 +192,7 @@ export default function VerifyEmailPage() {
   return (
     <Suspense
       fallback={
-        <div className="min-h-screen w-full flex items-center justify-center bg-slate-50">
+        <div className="min-h-screen w-full flex items-center justify-center bg-transparent">
           <div className="text-slate-400 text-sm font-medium">Loading...</div>
         </div>
       }

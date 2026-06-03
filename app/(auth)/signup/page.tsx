@@ -90,7 +90,7 @@ export default function SignupPage() {
   };
 
   return (
-    <div className="min-h-screen w-full flex flex-col lg:flex-row bg-slate-50">
+    <div className="min-h-screen w-full flex flex-col lg:flex-row bg-transparent">
       {/* 1. Left Side: Brand Panel */}
       <div className="hidden lg:flex w-5/12 bg-primary text-white flex-col justify-between p-12 relative overflow-hidden">
         {/* Background visual art */}
@@ -144,7 +144,7 @@ export default function SignupPage() {
 
       {/* 2. Right Side: Signup Form Container */}
       <div className="flex-1 flex items-center justify-center p-6 sm:p-12">
-        <div className="w-full max-w-lg bg-white border border-slate-200/80 p-8 rounded-2xl shadow-xl shadow-slate-100/50">
+        <div className="w-full max-w-lg bg-white border border-gray-100/80 p-8 rounded-2xl shadow-xl shadow-slate-100/50">
           <div className="text-center lg:text-left space-y-2 mb-6">
             <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900">Create Account</h1>
             <p className="text-sm text-slate-500">
@@ -263,7 +263,7 @@ export default function SignupPage() {
                           htmlFor="v-bangla"
                           className={`flex flex-col p-4 rounded-xl border-2 cursor-pointer transition-all-custom text-left space-y-1.5 ${selectedVersion === "bangla"
                             ? "border-primary bg-primary/5 ring-2 ring-primary/20"
-                            : "border-slate-200 bg-white hover:bg-slate-50"
+                            : "border-gray-100 bg-white hover:bg-transparent"
                             }`}
                         >
                           <span className="text-sm font-bold text-slate-900">Bangla Version</span>
@@ -284,7 +284,7 @@ export default function SignupPage() {
                           htmlFor="v-english"
                           className={`flex flex-col p-4 rounded-xl border-2 cursor-pointer transition-all-custom text-left space-y-1.5 ${selectedVersion === "english"
                             ? "border-primary bg-primary/5 ring-2 ring-primary/20"
-                            : "border-slate-200 bg-white hover:bg-slate-50"
+                            : "border-gray-100 bg-white hover:bg-transparent"
                             }`}
                         >
                           <span className="text-sm font-bold text-slate-900">English Version</span>
@@ -342,7 +342,7 @@ export default function SignupPage() {
             <Button
               type="submit"
               disabled={isLoading}
-              className="w-full bg-primary hover:bg-primary/95 text-white font-bold h-11 shadow-md shadow-primary/10 mt-2"
+              className="w-full bg-gradient-to-r from-[#6D5EF5] to-[#5B8DEF] text-white hover:shadow-lg hover:shadow-purple-500/25 transition-all duration-200 font-bold h-11 shadow-md shadow-primary/10 mt-2"
             >
               {isLoading ? (
                 <span className="flex items-center justify-center gap-2">

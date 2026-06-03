@@ -58,8 +58,8 @@ export default function ForgotPasswordPage() {
   };
 
   return (
-    <div className="min-h-screen w-full flex items-center justify-center bg-slate-50 p-6">
-      <div className="w-full max-w-md bg-white border border-slate-200/80 p-8 rounded-2xl shadow-xl shadow-slate-100/50 flex flex-col items-center">
+    <div className="min-h-screen w-full flex items-center justify-center bg-transparent p-6">
+      <div className="w-full max-w-md bg-white border border-gray-100/80 p-8 rounded-2xl shadow-xl shadow-slate-100/50 flex flex-col items-center">
         {/* Brand Header */}
         <Link href="/" className="flex items-center gap-2 mb-8">
           <Brain className="w-8 h-8 text-primary fill-primary/10" />
@@ -81,7 +81,7 @@ export default function ForgotPasswordPage() {
                 If your email exists in our records, a 6-digit password reset code has been sent.
               </p>
             </div>
-            <div className="bg-slate-50 border border-slate-100 p-4 rounded-xl text-xs text-slate-500 font-medium">
+            <div className="bg-transparent border border-gray-100 p-4 rounded-xl text-xs text-slate-500 font-medium">
               Redirecting you to enter the reset code...
             </div>
             <Link
@@ -95,7 +95,7 @@ export default function ForgotPasswordPage() {
         ) : (
           /* Request Reset Form */
           <div className="w-full flex flex-col items-center">
-            <div className="w-16 h-16 rounded-full bg-indigo-50 border border-indigo-100 flex items-center justify-center text-primary mb-6">
+            <div className="w-16 h-16 rounded-full bg-indigo-50 border border-gray-100 flex items-center justify-center text-primary mb-6">
               <KeyRound className="w-8 h-8 text-primary" />
             </div>
 
@@ -129,7 +129,7 @@ export default function ForgotPasswordPage() {
               <Button
                 type="submit"
                 disabled={isLoading}
-                className="w-full bg-primary hover:bg-primary/95 text-white font-bold h-11 shadow-md shadow-primary/10 mt-2"
+                className="w-full bg-gradient-to-r from-[#6D5EF5] to-[#5B8DEF] text-white hover:shadow-lg hover:shadow-purple-500/25 transition-all duration-200 font-bold h-11 shadow-md shadow-primary/10 mt-2"
               >
                 {isLoading ? (
                   <span className="flex items-center justify-center gap-2">

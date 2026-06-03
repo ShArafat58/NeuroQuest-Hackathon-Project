@@ -184,6 +184,22 @@ export async function POST(request: Request) {
       );
     }
 
+    // --- XP LOGIC ---
+    try {
+      const { awardXp } = require('@/lib/xp');
+      
+      // Award 15 XP for completing the scene successfully
+      await awardXp(payload.userId, 15);
+      
+      if (isSessionComplete) {
+        // Award extra 50 XP for completing the whole quest
+        await awardXp(payload.userId, 50);
+      }
+    } catch (xpError) {
+      console.error('Failed to award XP for story choice:', xpError);
+    }
+    // ----------------
+
     // 8. Return response
     // ৮. রেসপন্স ফেরত পাঠানো
     return NextResponse.json({

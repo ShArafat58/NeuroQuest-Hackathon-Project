@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Loader2, KeyRound, Save } from "lucide-react";
+import { Loader2, KeyRound, Save, User, Lock, GraduationCap } from "lucide-react";
 import { toast } from "sonner";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -136,7 +136,7 @@ export default function SettingsPage() {
 
   if (loading || !user) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-slate-50">
+      <div className="flex min-h-screen items-center justify-center bg-transparent">
         <Loader2 className="w-10 h-10 animate-spin text-primary" />
       </div>
     );
@@ -144,12 +144,16 @@ export default function SettingsPage() {
 
   const isBangla = user.version === "bangla";
   const initials = user.name.split(' ').map((n: string) => n[0]).join('').slice(0, 2).toUpperCase();
-  const memberSince = new Date(user.created_at).toLocaleDateString(isBangla ? 'bn-BD' : 'en-US', {
-    year: 'numeric', month: 'long', day: 'numeric'
-  });
+  const signupDate = new Date(user.created_at);
+  const isValidDate = !isNaN(signupDate.getTime()) && user.created_at !== null && user.created_at !== undefined;
+  const memberSince = isValidDate
+    ? signupDate.toLocaleDateString(isBangla ? 'bn-BD' : 'en-US', {
+        year: 'numeric', month: 'long', day: 'numeric'
+      })
+    : null;
 
   return (
-    <div className="flex min-h-screen flex-col bg-slate-50">
+    <div className="flex min-h-screen flex-col bg-transparent">
       <Header user={user} />
 
       <main className="flex-1 container mx-auto px-4 py-8 max-w-3xl space-y-6">
@@ -158,54 +162,63 @@ export default function SettingsPage() {
         </h1>
 
         {/* Section 1: Account Information */}
-        <Card className="rounded-2xl border-slate-200 shadow-sm overflow-hidden">
-          <CardHeader className="bg-slate-50/50 border-b border-slate-100">
-            <CardTitle>{isBangla ? "অ্যাকাউন্ট তথ্য" : "Account Information"}</CardTitle>
+        <Card className="rounded-2xl border border-gray-100 bg-white shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 overflow-hidden">
+          <CardHeader className="bg-white border-b border-gray-100 px-6 py-4 flex flex-row items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-[#EEF0FF] flex items-center justify-center text-[#6D5EF5] shrink-0">
+              <User className="w-5 h-5" />
+            </div>
+            <CardTitle className="text-lg font-bold text-slate-900 tracking-tight">
+              {isBangla ? "অ্যাকাউন্ট তথ্য" : "Account Information"}
+            </CardTitle>
           </CardHeader>
           <CardContent className="p-6">
             <div className="flex items-center gap-6">
-              <Avatar className="w-20 h-20 border-2 border-primary/20">
-                <AvatarFallback className="bg-primary/10 text-primary text-2xl font-black">
+              <Avatar className="w-20 h-20 border-2 border-[#6D5EF5]/20">
+                <AvatarFallback className="bg-[#EEF0FF] text-[#6D5EF5] text-2xl font-black">
                   {initials}
                 </AvatarFallback>
               </Avatar>
               <div className="space-y-1">
                 <h3 className="text-xl font-bold text-slate-900">{user.name}</h3>
                 <p className="text-slate-500">{user.email}</p>
-                <p className="text-xs text-slate-400 mt-2">
-                  {isBangla ? `সদস্য: ${memberSince}` : `Member since: ${memberSince}`}
-                </p>
+                {memberSince && (
+                  <p className="text-xs text-slate-400 mt-2">
+                    {isBangla ? `সদস্য: ${memberSince}` : `Member since: ${memberSince}`}
+                  </p>
+                )}
               </div>
             </div>
           </CardContent>
         </Card>
 
         {/* Section 2: Change Password */}
-        <Card className="rounded-2xl border-slate-200 shadow-sm overflow-hidden">
-          <CardHeader className="bg-slate-50/50 border-b border-slate-100">
-            <CardTitle className="flex items-center gap-2">
-              <KeyRound className="w-5 h-5 text-slate-500" />
+        <Card className="rounded-2xl border border-gray-100 bg-white shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 overflow-hidden">
+          <CardHeader className="bg-white border-b border-gray-100 px-6 py-4 flex flex-row items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-[#EEF0FF] flex items-center justify-center text-[#6D5EF5] shrink-0">
+              <Lock className="w-5 h-5" />
+            </div>
+            <CardTitle className="text-lg font-bold text-slate-900 tracking-tight">
               {isBangla ? "পাসওয়ার্ড পরিবর্তন" : "Change Password"}
             </CardTitle>
           </CardHeader>
           <CardContent className="p-6">
             <form onSubmit={handleSubmit(onChangePassword)} className="space-y-4 max-w-md">
               <div className="space-y-2">
-                <Label>{isBangla ? "বর্তমান পাসওয়ার্ড" : "Current Password"}</Label>
-                <Input type="password" {...register("current_password")} />
+                <Label className="text-sm font-bold text-slate-700">{isBangla ? "বর্তমান পাসওয়ার্ড" : "Current Password"}</Label>
+                <Input type="password" {...register("current_password")} className="rounded-xl border-gray-200 focus-visible:ring-purple-400 focus-visible:ring-offset-0 focus-visible:ring-2 focus-visible:border-transparent h-11 transition-all duration-200" />
                 {errors.current_password && <p className="text-xs text-red-500">{errors.current_password.message}</p>}
               </div>
               <div className="space-y-2">
-                <Label>{isBangla ? "নতুন পাসওয়ার্ড" : "New Password"}</Label>
-                <Input type="password" {...register("new_password")} />
+                <Label className="text-sm font-bold text-slate-700">{isBangla ? "নতুন পাসওয়ার্ড" : "New Password"}</Label>
+                <Input type="password" {...register("new_password")} className="rounded-xl border-gray-200 focus-visible:ring-purple-400 focus-visible:ring-offset-0 focus-visible:ring-2 focus-visible:border-transparent h-11 transition-all duration-200" />
                 {errors.new_password && <p className="text-xs text-red-500">{errors.new_password.message}</p>}
               </div>
               <div className="space-y-2">
-                <Label>{isBangla ? "নতুন পাসওয়ার্ড নিশ্চিত করুন" : "Confirm New Password"}</Label>
-                <Input type="password" {...register("confirm_password")} />
+                <Label className="text-sm font-bold text-slate-700">{isBangla ? "নতুন পাসওয়ার্ড নিশ্চিত করুন" : "Confirm New Password"}</Label>
+                <Input type="password" {...register("confirm_password")} className="rounded-xl border-gray-200 focus-visible:ring-purple-400 focus-visible:ring-offset-0 focus-visible:ring-2 focus-visible:border-transparent h-11 transition-all duration-200" />
                 {errors.confirm_password && <p className="text-xs text-red-500">{errors.confirm_password.message}</p>}
               </div>
-              <Button type="submit" disabled={isChangingPassword} className="bg-primary hover:bg-primary/90 text-white font-bold w-full sm:w-auto">
+              <Button type="submit" disabled={isChangingPassword} className="bg-gradient-to-r from-[#6D5EF5] to-[#5B8DEF] hover:shadow-lg hover:shadow-purple-500/25 text-white font-bold rounded-xl transition-all duration-200 h-11 px-6 disabled:bg-gray-100 disabled:from-gray-200 disabled:to-gray-200 disabled:text-gray-400 disabled:cursor-not-allowed disabled:shadow-none w-full sm:w-auto mt-2">
                 {isChangingPassword ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : null}
                 {isBangla ? "পাসওয়ার্ড পরিবর্তন করুন" : "Change Password"}
               </Button>
@@ -214,9 +227,14 @@ export default function SettingsPage() {
         </Card>
 
         {/* Section 3: Learning Preferences */}
-        <Card className="rounded-2xl border-slate-200 shadow-sm overflow-hidden">
-          <CardHeader className="bg-slate-50/50 border-b border-slate-100">
-            <CardTitle>{isBangla ? "শিক্ষাগত সেটিংস" : "Learning Preferences"}</CardTitle>
+        <Card className="rounded-2xl border border-gray-100 bg-white shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 overflow-hidden">
+          <CardHeader className="bg-white border-b border-gray-100 px-6 py-4 flex flex-row items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-[#EEF0FF] flex items-center justify-center text-[#6D5EF5] shrink-0">
+              <GraduationCap className="w-5 h-5" />
+            </div>
+            <CardTitle className="text-lg font-bold text-slate-900 tracking-tight">
+              {isBangla ? "শিক্ষাগত সেটিংস" : "Learning Preferences"}
+            </CardTitle>
           </CardHeader>
           <CardContent className="p-6 space-y-8">
 
@@ -231,9 +249,9 @@ export default function SettingsPage() {
                     <RadioGroupItem value={cls} id={`class-${cls}`} className="peer sr-only" />
                     <Label
                       htmlFor={`class-${cls}`}
-                      className="flex flex-col items-center justify-center rounded-xl border-2 border-slate-200 bg-white p-4 hover:bg-slate-50 hover:border-slate-300 peer-data-[state=checked]:border-primary peer-data-[state=checked]:bg-primary/5 cursor-pointer transition-all"
+                      className="flex flex-col items-center justify-center rounded-xl border-2 border-gray-100 bg-white p-4 hover:border-purple-300 hover:bg-purple-50/50 cursor-pointer transition-all duration-200 peer-data-[state=checked]:border-[#6D5EF5] peer-data-[state=checked]:bg-purple-50 peer-data-[state=checked]:text-[#3C3489]"
                     >
-                      <span className="font-bold text-slate-900">
+                      <span className="font-bold">
                         {cls === 'ssc'
                           ? (isBangla ? 'এসএসসি' : 'SSC')
                           : cls === 'hsc_1'
@@ -248,11 +266,11 @@ export default function SettingsPage() {
                   </div>
                 ))}
               </RadioGroup>
-              <div className="pt-4">
+              <div className="pt-2">
                 <Button
                   onClick={handleSaveClass}
                   disabled={isChangingClass || selectedClass === user.current_class}
-                  className="bg-primary hover:bg-primary/90 text-white font-bold"
+                  className="bg-gradient-to-r from-[#6D5EF5] to-[#5B8DEF] hover:shadow-lg hover:shadow-purple-500/25 text-white font-bold rounded-xl transition-all duration-200 h-11 px-6 disabled:bg-gray-100 disabled:from-gray-200 disabled:to-gray-200 disabled:text-gray-400 disabled:cursor-not-allowed disabled:shadow-none"
                 >
                   {isChangingClass ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Save className="w-4 h-4 mr-2" />}
                   {isBangla ? "শ্রেণী পরিবর্তন সংরক্ষণ করুন" : "Save Class Change"}
@@ -263,7 +281,7 @@ export default function SettingsPage() {
             {/* 3b: NCTB Version */}
             {selectedClass !== "ielts" && selectedClass !== "medical" && (
               <>
-                <hr className="border-slate-100" />
+                <hr className="border-gray-100" />
                 <div className="space-y-4">
                   <Label className="text-base font-bold text-slate-800">
                     {isBangla ? "এনসিটিবি সংস্করণ" : "NCTB Version"}
@@ -274,21 +292,20 @@ export default function SettingsPage() {
                         <RadioGroupItem value={ver} id={`ver-${ver}`} className="peer sr-only" />
                         <Label
                           htmlFor={`ver-${ver}`}
-                          className="flex flex-col items-center justify-center rounded-xl border-2 border-slate-200 bg-white p-4 hover:bg-slate-50 hover:border-slate-300 peer-data-[state=checked]:border-primary peer-data-[state=checked]:bg-primary/5 cursor-pointer transition-all"
+                          className="flex flex-col items-center justify-center rounded-xl border-2 border-gray-100 bg-white p-4 hover:border-purple-300 hover:bg-purple-50/50 cursor-pointer transition-all duration-200 peer-data-[state=checked]:border-[#6D5EF5] peer-data-[state=checked]:bg-purple-50 peer-data-[state=checked]:text-[#3C3489]"
                         >
-                          <span className="font-bold text-slate-900">
+                          <span className="font-bold">
                             {ver === 'bangla' ? 'Bangla Version' : 'English Version'}
                           </span>
                         </Label>
                       </div>
                     ))}
                   </RadioGroup>
-                  <div>
+                  <div className="pt-2">
                     <Button
                       onClick={handleSaveVersion}
                       disabled={isChangingVersion || selectedVersion === user.version}
-                      variant="outline"
-                      className="font-bold"
+                      className="bg-gradient-to-r from-[#6D5EF5] to-[#5B8DEF] hover:shadow-lg hover:shadow-purple-500/25 text-white font-bold rounded-xl transition-all duration-200 h-11 px-6 disabled:bg-gray-100 disabled:from-gray-200 disabled:to-gray-200 disabled:text-gray-400 disabled:cursor-not-allowed disabled:shadow-none"
                     >
                       {isChangingVersion ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Save className="w-4 h-4 mr-2" />}
                       {isBangla ? "সংস্করণ সংরক্ষণ করুন" : "Save Version"}

@@ -54,7 +54,7 @@ export default function MetabolicResponseCaseQuest() {
             : 0;
 
     return (
-        <div className="flex min-h-screen flex-col bg-slate-50">
+        <div className="flex min-h-screen flex-col bg-transparent">
             <Header user={user} />
             <main className="flex-1 container mx-auto px-4 py-8 max-w-3xl">
                 <div className="mb-6 flex items-center justify-between">
@@ -87,7 +87,7 @@ export default function MetabolicResponseCaseQuest() {
                 {data && !loading && (
                     <>
                         {/* Patient intro */}
-                        <div className="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm mb-6">
+                        <div className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 mb-6">
                             <h2 className="font-bold text-slate-900 mb-2">{data.title}</h2>
                             <p className="text-slate-700 leading-relaxed">{data.patient}</p>
                         </div>
@@ -97,7 +97,7 @@ export default function MetabolicResponseCaseQuest() {
                             {data.questions.map((q: any, i: number) => {
                                 const correct = checked && answers[i] === q.answer;
                                 return (
-                                    <div key={i} className="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm">
+                                    <div key={i} className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
                                         {q.phase && (
                                             <span className="inline-block mb-2 bg-indigo-50 text-indigo-700 text-xs font-semibold px-2 py-1 rounded">
                                                 {q.phase}
@@ -113,7 +113,7 @@ export default function MetabolicResponseCaseQuest() {
                                             {(q.options || []).map((opt: string, j: number) => (
                                                 <label
                                                     key={j}
-                                                    className={`flex items-center gap-2 rounded-xl border p-3 cursor-pointer text-sm ${answers[i] === opt ? "border-indigo-400 bg-indigo-50" : "border-slate-200"
+                                                    className={`flex items-center gap-2 rounded-xl border p-3 cursor-pointer text-sm ${answers[i] === opt ? "border-indigo-400 bg-indigo-50" : "border-gray-100"
                                                         }`}
                                                 >
                                                     <input
@@ -152,14 +152,14 @@ export default function MetabolicResponseCaseQuest() {
                             </button>
                         ) : (
                             <>
-                                <div className="mt-6 bg-white rounded-3xl p-6 border border-slate-200 shadow-sm text-center">
+                                <div className="mt-6 bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 text-center">
                                     <p className="text-slate-500 text-sm">Your score</p>
                                     <p className="text-4xl font-extrabold text-indigo-600">
                                         {score} / {data.questions.length}
                                     </p>
                                 </div>
                                 {Array.isArray(data.key_points) && data.key_points.length > 0 && (
-                                    <div className="mt-4 bg-indigo-50 rounded-3xl p-6 border border-indigo-100">
+                                    <div className="mt-4 bg-indigo-50 rounded-2xl p-6 border border-gray-100">
                                         <h3 className="font-bold text-indigo-700 mb-2">Key points to remember</h3>
                                         <ul className="list-disc list-inside text-sm text-slate-700 space-y-1">
                                             {data.key_points.map((k: string, i: number) => (

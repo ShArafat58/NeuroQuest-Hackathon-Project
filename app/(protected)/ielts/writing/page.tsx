@@ -66,7 +66,7 @@ export default function WritingPage() {
   };
 
   return (
-    <div className="flex min-h-screen flex-col bg-slate-50">
+    <div className="flex min-h-screen flex-col bg-transparent">
       <Header user={user} />
       <main className="flex-1 container mx-auto px-4 py-8 max-w-3xl space-y-6">
         <button
@@ -78,17 +78,17 @@ export default function WritingPage() {
 
         <h1 className="text-2xl font-extrabold text-slate-900">IELTS Writing — Task 2</h1>
 
-        <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+        <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
           <p className="font-semibold mb-2">Prompt:</p>
           <p className="italic text-slate-700 mb-4">{currentPrompt}</p>
           <button
             onClick={handleNewQuestion}
-            className="mb-4 border border-slate-300 hover:bg-slate-50 text-slate-700 font-medium rounded-xl px-4 py-2 text-sm transition"
+            className="mb-4 border border-slate-300 hover:bg-transparent text-slate-700 font-medium rounded-xl px-4 py-2 text-sm transition"
           >
             New Question
           </button>
           <textarea
-            className="w-full h-48 p-3 border border-slate-200 rounded-xl text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+            className="w-full h-48 p-3 border border-gray-100 rounded-xl text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-400"
             placeholder="Write your essay here (at least 150 words)..."
             value={essay}
             onChange={(e) => setEssay(e.target.value)}
@@ -106,7 +106,7 @@ export default function WritingPage() {
         </div>
 
         {result && (
-          <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+          <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
             <h2 className="text-xl font-bold mb-4">Result</h2>
             <p className="text-3xl font-extrabold text-indigo-600 mb-4">
               Overall Band: {result.overall_band}
@@ -114,7 +114,7 @@ export default function WritingPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
               {Array.isArray(result.criteria) &&
                 result.criteria.map((c: any, i: number) => (
-                  <div key={i} className="p-3 border border-slate-200 rounded-xl bg-slate-50">
+                  <div key={i} className="p-3 border border-gray-100 rounded-xl bg-transparent">
                     <p className="font-semibold text-slate-800">{c.name}</p>
                     <p className="text-indigo-600 font-bold">Band: {c.band}</p>
                     <p className="text-sm text-slate-600">{c.comment}</p>
