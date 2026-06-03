@@ -6,8 +6,12 @@ export async function middleware(request: NextRequest) {
   const token = request.cookies.get("neuroquest_session")?.value;
   const { pathname } = request.nextUrl;
 
-  // We enforce JWT validation for any route starting with /dashboard
-  if (pathname.startsWith("/dashboard")) {
+  // Enforce JWT validation for protected page routes
+  if (
+    pathname.startsWith("/dashboard") ||
+    pathname.startsWith("/ielts") ||
+    pathname.startsWith("/medical")
+  ) {
     if (!token) {
       const loginUrl = new URL("/login", request.url);
       loginUrl.searchParams.set("reason", "auth_required");
@@ -18,7 +22,7 @@ export async function middleware(request: NextRequest) {
     if (!payload) {
       const loginUrl = new URL("/login", request.url);
       loginUrl.searchParams.set("reason", "auth_required");
-      
+
       const response = NextResponse.redirect(loginUrl);
       // Clean up invalid session cookie in the user's browser
       response.cookies.delete("neuroquest_session");
@@ -37,7 +41,9 @@ export const config = {
     "/coming-soon/:path*",
     "/settings/:path*",
     "/quiz/:path*",
+    "/ielts/:path*",
+    "/medical/:path*",
     "/api/quiz/:path*",
-    "/api/chapters/:path*"
+    "/api/chapters/:path*",
   ],
 };

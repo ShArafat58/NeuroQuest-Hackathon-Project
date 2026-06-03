@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { signupSchema } from "@/lib/validators";
-import { hashPassword, generateCode } from "@/lib/auth";
+import { hashPassword, generateCode, generateJWT } from "@/lib/auth";
 import { supabaseServer } from "@/lib/supabase";
 import { sendVerificationEmail } from "@/lib/email";
 
@@ -56,7 +56,7 @@ export async function POST(request: Request) {
         birthdate: formattedBirthdate,
         version,
         current_class,
-        email_verified: false,
+        email_verified: true, // DEMO: OTP email bypass — auto-verified for hackathon demo
       })
       .select("id, full_name, version")
       .single();
@@ -69,37 +69,30 @@ export async function POST(request: Request) {
       );
     }
 
-    // 5. Generate a 6-digit OTP code and set expiry to 15 minutes from now
-    const code = generateCode();
-    const expiresAt = new Date(Date.now() + 15 * 60 * 1000).toISOString();
+    // 5. Skipping OTP code generation and storage for demo (OTP bypass) // DEMO: OTP email bypass — auto-verified for hackathon demo
 
-    const { error: insertCodeError } = await supabaseServer
-      .from("verification_codes")
-      .insert({
-        user_id: newUser.id,
-        code,
-        type: "signup",
-        expires_at: expiresAt,
-        used: false,
-      });
+    // 6. Skipping verification email send for demo (OTP bypass)
+    // const emailResult = await sendVerificationEmail(email.toLowerCase(), code, newUser.full_name, newUser.version); // DEMO: OTP email bypass — auto-verified for hackathon demo
 
-    if (insertCodeError) {
-      console.error("Database verification code insertion error:", insertCodeError);
-      return NextResponse.json(
-        { error: "Failed to generate verification code. Please try again." },
-        { status: 500 }
-      );
-    }
-
-    // 6. Send the verification email containing the code via Resend
-    await sendVerificationEmail(email.toLowerCase(), code, newUser.full_name, newUser.version);
-
-    // 7. Return the response
-    return NextResponse.json({
+    // 7. Auto-login: generate JWT and set cookie
+    // Import generateJWT from lib/auth (added at top)
+    const token = await generateJWT(newUser.id, email.toLowerCase());
+    const response = NextResponse.json({
       success: true,
       userId: newUser.id,
-      message: "Check your email for verification code",
+      message: "Account created successfully",
+      redirectTo: "/dashboard",
     });
+    response.cookies.set({
+      name: "neuroquest_session",
+      value: token,
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      path: "/",
+      maxAge: 30 * 24 * 60 * 60,
+    });
+    return response; // DEMO: auto-login after signup
   } catch (error) {
     console.error("Unexpected error in signup API handler:", error);
     return NextResponse.json(

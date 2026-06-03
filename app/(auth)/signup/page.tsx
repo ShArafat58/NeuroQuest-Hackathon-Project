@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm, Controller } from "react-hook-form";
@@ -39,6 +39,7 @@ export default function SignupPage() {
     handleSubmit,
     control,
     watch,
+    setValue,
     formState: { errors },
   } = useForm<SignupInput>({
     resolver: zodResolver(signupSchema),
@@ -54,6 +55,13 @@ export default function SignupPage() {
   });
 
   const selectedVersion = watch("version");
+  const selectedClass = watch("current_class");
+
+  useEffect(() => {
+    if (selectedClass === "ielts" || selectedClass === "medical") {
+      setValue("version", "english");
+    }
+  }, [selectedClass, setValue]);
 
   const onSubmit = async (data: SignupInput) => {
     setIsLoading(true);
@@ -71,8 +79,8 @@ export default function SignupPage() {
       if (!res.ok) {
         toast.error(result.error || "Signup failed. Please try again.");
       } else {
-        toast.success("Account created successfully! Check your email.");
-        router.push(`/verify-email?email=${encodeURIComponent(data.email)}`);
+        toast.success("Account created successfully!");
+        router.push('/dashboard');
       }
     } catch (_err) {
       toast.error("An unexpected error occurred. Please check your connection.");
@@ -218,6 +226,8 @@ export default function SignupPage() {
                           <SelectItem value="ssc" className="cursor-pointer">Class 9-10 (SSC)</SelectItem>
                           <SelectItem value="hsc_1" className="cursor-pointer">HSC 1st Year</SelectItem>
                           <SelectItem value="hsc_2" className="cursor-pointer">HSC 2nd Year</SelectItem>
+                          <SelectItem value="ielts" className="cursor-pointer">IELTS</SelectItem>
+                          <SelectItem value="medical" className="cursor-pointer">Medical</SelectItem>
                         </SelectContent>
                       </Select>
                     )}
@@ -230,67 +240,67 @@ export default function SignupPage() {
             </div>
 
             {/* Version Radio Group */}
-            <div className="space-y-2">
-              <Label className="text-xs font-bold text-slate-700">Select NCTB Version</Label>
-              <Controller
-                control={control}
-                name="version"
-                render={({ field }) => (
-                  <RadioGroup
-                    onValueChange={field.onChange}
-                    value={field.value}
-                    className="grid grid-cols-2 gap-4"
-                  >
-                    {/* Bangla Card */}
-                    <div className="relative">
-                      <RadioGroupItem
-                        value="bangla"
-                        id="v-bangla"
-                        className="sr-only"
-                      />
-                      <Label
-                        htmlFor="v-bangla"
-                        className={`flex flex-col p-4 rounded-xl border-2 cursor-pointer transition-all-custom text-left space-y-1.5 ${
-                          selectedVersion === "bangla"
+            {selectedClass !== "ielts" && selectedClass !== "medical" && (
+              <div className="space-y-2">
+                <Label className="text-xs font-bold text-slate-700">Select NCTB Version</Label>
+                <Controller
+                  control={control}
+                  name="version"
+                  render={({ field }) => (
+                    <RadioGroup
+                      onValueChange={field.onChange}
+                      value={field.value}
+                      className="grid grid-cols-2 gap-4"
+                    >
+                      {/* Bangla Card */}
+                      <div className="relative">
+                        <RadioGroupItem
+                          value="bangla"
+                          id="v-bangla"
+                          className="sr-only"
+                        />
+                        <Label
+                          htmlFor="v-bangla"
+                          className={`flex flex-col p-4 rounded-xl border-2 cursor-pointer transition-all-custom text-left space-y-1.5 ${selectedVersion === "bangla"
                             ? "border-primary bg-primary/5 ring-2 ring-primary/20"
                             : "border-slate-200 bg-white hover:bg-slate-50"
-                        }`}
-                      >
-                        <span className="text-sm font-bold text-slate-900">Bangla Version</span>
-                        <span className="text-[11px] text-slate-500 leading-tight">
-                          আমি বাংলা মাধ্যমে পড়াশোনা করি। (Sample: মহাকর্ষ বল)
-                        </span>
-                      </Label>
-                    </div>
+                            }`}
+                        >
+                          <span className="text-sm font-bold text-slate-900">Bangla Version</span>
+                          <span className="text-[11px] text-slate-500 leading-tight">
+                            আমি বাংলা মাধ্যমে পড়াশোনা করি। (Sample: মহাকর্ষ বল)
+                          </span>
+                        </Label>
+                      </div>
 
-                    {/* English Card */}
-                    <div className="relative">
-                      <RadioGroupItem
-                        value="english"
-                        id="v-english"
-                        className="sr-only"
-                      />
-                      <Label
-                        htmlFor="v-english"
-                        className={`flex flex-col p-4 rounded-xl border-2 cursor-pointer transition-all-custom text-left space-y-1.5 ${
-                          selectedVersion === "english"
+                      {/* English Card */}
+                      <div className="relative">
+                        <RadioGroupItem
+                          value="english"
+                          id="v-english"
+                          className="sr-only"
+                        />
+                        <Label
+                          htmlFor="v-english"
+                          className={`flex flex-col p-4 rounded-xl border-2 cursor-pointer transition-all-custom text-left space-y-1.5 ${selectedVersion === "english"
                             ? "border-primary bg-primary/5 ring-2 ring-primary/20"
                             : "border-slate-200 bg-white hover:bg-slate-50"
-                        }`}
-                      >
-                        <span className="text-sm font-bold text-slate-900">English Version</span>
-                        <span className="text-[11px] text-slate-500 leading-tight">
-                          I study in English version. (Sample: Gravitation)
-                        </span>
-                      </Label>
-                    </div>
-                  </RadioGroup>
+                            }`}
+                        >
+                          <span className="text-sm font-bold text-slate-900">English Version</span>
+                          <span className="text-[11px] text-slate-500 leading-tight">
+                            I study in English version. (Sample: Gravitation)
+                          </span>
+                        </Label>
+                      </div>
+                    </RadioGroup>
+                  )}
+                />
+                {errors.version && (
+                  <p className="text-xs text-red-500 font-semibold">{errors.version.message}</p>
                 )}
-              />
-              {errors.version && (
-                <p className="text-xs text-red-500 font-semibold">{errors.version.message}</p>
-              )}
-            </div>
+              </div>
+            )}
 
             {/* Password */}
             <div className="space-y-1.5">

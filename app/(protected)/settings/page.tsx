@@ -30,6 +30,12 @@ export default function SettingsPage() {
   const [selectedClass, setSelectedClass] = useState<string>("ssc");
   const [selectedVersion, setSelectedVersion] = useState<string>("bangla");
 
+  useEffect(() => {
+    if (selectedClass === "ielts" || selectedClass === "medical") {
+      setSelectedVersion("english");
+    }
+  }, [selectedClass]);
+
   const {
     register,
     handleSubmit,
@@ -64,7 +70,7 @@ export default function SettingsPage() {
         body: JSON.stringify(data),
       });
       const result = await res.json();
-      
+
       if (res.ok) {
         toast.success(result.message);
         setTimeout(() => {
@@ -90,7 +96,7 @@ export default function SettingsPage() {
         body: JSON.stringify({ new_class: selectedClass }),
       });
       const result = await res.json();
-      
+
       if (res.ok) {
         toast.success(user.version === "bangla" ? "শ্রেণী আপডেট হয়েছে" : "Class updated");
         window.location.reload();
@@ -114,7 +120,7 @@ export default function SettingsPage() {
         body: JSON.stringify({ new_version: selectedVersion }),
       });
       const result = await res.json();
-      
+
       if (res.ok) {
         toast.success("Version updated");
         window.location.reload();
@@ -213,14 +219,14 @@ export default function SettingsPage() {
             <CardTitle>{isBangla ? "শিক্ষাগত সেটিংস" : "Learning Preferences"}</CardTitle>
           </CardHeader>
           <CardContent className="p-6 space-y-8">
-            
+
             {/* 3a: Class */}
             <div className="space-y-4">
               <Label className="text-base font-bold text-slate-800">
                 {isBangla ? "আপনার শ্রেণী" : "Your Class"}
               </Label>
-              <RadioGroup value={selectedClass} onValueChange={setSelectedClass} className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                {['ssc', 'hsc_1', 'hsc_2'].map((cls) => (
+              <RadioGroup value={selectedClass} onValueChange={setSelectedClass} className="grid grid-cols-2 sm:grid-cols-5 gap-3">
+                {['ssc', 'hsc_1', 'hsc_2', 'ielts', 'medical'].map((cls) => (
                   <div key={cls}>
                     <RadioGroupItem value={cls} id={`class-${cls}`} className="peer sr-only" />
                     <Label
@@ -228,62 +234,69 @@ export default function SettingsPage() {
                       className="flex flex-col items-center justify-center rounded-xl border-2 border-slate-200 bg-white p-4 hover:bg-slate-50 hover:border-slate-300 peer-data-[state=checked]:border-primary peer-data-[state=checked]:bg-primary/5 cursor-pointer transition-all"
                     >
                       <span className="font-bold text-slate-900">
-                        {cls === 'ssc' ? (isBangla ? 'এসএসসি' : 'SSC') : cls === 'hsc_1' ? (isBangla ? 'এইচএসসি ১ম বর্ষ' : 'HSC 1st Year') : (isBangla ? 'এইচএসসি ২য় বর্ষ' : 'HSC 2nd Year')}
+                        {cls === 'ssc'
+                          ? (isBangla ? 'এসএসসি' : 'SSC')
+                          : cls === 'hsc_1'
+                            ? (isBangla ? 'এইচএসসি ১ম বর্ষ' : 'HSC 1st Year')
+                            : cls === 'hsc_2'
+                              ? (isBangla ? 'এইচএসসি ২য় বর্ষ' : 'HSC 2nd Year')
+                              : cls === 'ielts'
+                                ? 'IELTS'
+                                : 'Medical'}
                       </span>
                     </Label>
                   </div>
                 ))}
               </RadioGroup>
-              <p className="text-xs font-medium text-amber-600 bg-amber-50 p-2 rounded border border-amber-100 inline-block">
-                {isBangla ? "সতর্কতা: শ্রেণী পরিবর্তন আপনার বর্তমান বিষয় ও অধ্যায় নির্বাচন রিসেট করবে।" : "Warning: Changing class will reset your subject and chapter selection."}
-              </p>
-              <div>
-                <Button 
-                  onClick={handleSaveClass} 
+              <div className="pt-4">
+                <Button
+                  onClick={handleSaveClass}
                   disabled={isChangingClass || selectedClass === user.current_class}
-                  variant="outline"
-                  className="font-bold"
+                  className="bg-primary hover:bg-primary/90 text-white font-bold"
                 >
                   {isChangingClass ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Save className="w-4 h-4 mr-2" />}
-                  {isBangla ? "শ্রেণী সংরক্ষণ করুন" : "Save Class"}
+                  {isBangla ? "শ্রেণী পরিবর্তন সংরক্ষণ করুন" : "Save Class Change"}
                 </Button>
               </div>
             </div>
-
-            <hr className="border-slate-100" />
 
             {/* 3b: NCTB Version */}
-            <div className="space-y-4">
-              <Label className="text-base font-bold text-slate-800">
-                {isBangla ? "এনসিটিবি সংস্করণ" : "NCTB Version"}
-              </Label>
-              <RadioGroup value={selectedVersion} onValueChange={setSelectedVersion} className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-sm">
-                {['bangla', 'english'].map((ver) => (
-                  <div key={ver}>
-                    <RadioGroupItem value={ver} id={`ver-${ver}`} className="peer sr-only" />
-                    <Label
-                      htmlFor={`ver-${ver}`}
-                      className="flex flex-col items-center justify-center rounded-xl border-2 border-slate-200 bg-white p-4 hover:bg-slate-50 hover:border-slate-300 peer-data-[state=checked]:border-primary peer-data-[state=checked]:bg-primary/5 cursor-pointer transition-all"
+            {selectedClass !== "ielts" && selectedClass !== "medical" && (
+              <>
+                <hr className="border-slate-100" />
+                <div className="space-y-4">
+                  <Label className="text-base font-bold text-slate-800">
+                    {isBangla ? "এনসিটিবি সংস্করণ" : "NCTB Version"}
+                  </Label>
+                  <RadioGroup value={selectedVersion} onValueChange={setSelectedVersion} className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-sm">
+                    {['bangla', 'english'].map((ver) => (
+                      <div key={ver}>
+                        <RadioGroupItem value={ver} id={`ver-${ver}`} className="peer sr-only" />
+                        <Label
+                          htmlFor={`ver-${ver}`}
+                          className="flex flex-col items-center justify-center rounded-xl border-2 border-slate-200 bg-white p-4 hover:bg-slate-50 hover:border-slate-300 peer-data-[state=checked]:border-primary peer-data-[state=checked]:bg-primary/5 cursor-pointer transition-all"
+                        >
+                          <span className="font-bold text-slate-900">
+                            {ver === 'bangla' ? 'Bangla Version' : 'English Version'}
+                          </span>
+                        </Label>
+                      </div>
+                    ))}
+                  </RadioGroup>
+                  <div>
+                    <Button
+                      onClick={handleSaveVersion}
+                      disabled={isChangingVersion || selectedVersion === user.version}
+                      variant="outline"
+                      className="font-bold"
                     >
-                      <span className="font-bold text-slate-900">
-                        {ver === 'bangla' ? 'Bangla Version' : 'English Version'}
-                      </span>
-                    </Label>
+                      {isChangingVersion ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Save className="w-4 h-4 mr-2" />}
+                      {isBangla ? "সংস্করণ সংরক্ষণ করুন" : "Save Version"}
+                    </Button>
                   </div>
-                ))}
-              </RadioGroup>
-              <div>
-                <Button 
-                  onClick={handleSaveVersion} 
-                  disabled={isChangingVersion || selectedVersion === user.version}
-                  variant="outline"
-                  className="font-bold"
-                >
-                  {isChangingVersion ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Save className="w-4 h-4 mr-2" />}
-                  {isBangla ? "সংস্করণ সংরক্ষণ করুন" : "Save Version"}
-                </Button>
-              </div>
-            </div>
+                </div>
+              </>
+            )}
 
           </CardContent>
         </Card>

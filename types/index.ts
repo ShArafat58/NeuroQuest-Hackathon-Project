@@ -4,7 +4,7 @@ export interface User {
   email: string;
   birthdate: string;
   version: "bangla" | "english";
-  current_class: "ssc" | "hsc_1" | "hsc_2";
+  current_class: "ssc" | "hsc_1" | "hsc_2" | "ielts";
   email_verified: boolean;
   created_at: string;
   updated_at: string;
@@ -37,6 +37,6 @@ export interface AuthResponse {
     name: string;
     email: string;
     version: "bangla" | "english";
-    current_class?: "ssc" | "hsc_1" | "hsc_2";
+    current_class?: "ssc" | "hsc_1" | "hsc_2" | "ielts";
   };
 }

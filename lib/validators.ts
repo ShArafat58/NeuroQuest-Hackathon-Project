@@ -54,7 +54,7 @@ export const signupSchema = z
     version: z.enum(["bangla", "english"], {
       message: "Please select a version",
     }),
-    current_class: z.enum(["ssc", "hsc_1", "hsc_2"], {
+    current_class: z.enum(["ssc", "hsc_1", "hsc_2", "ielts", "medical"], {
       message: "Please select your current class",
     }),
   })
@@ -91,7 +91,7 @@ export const changePasswordSchema = z.object({
   current_password: z.string().min(1, "Current password is required"),
   new_password: z.string()
     .min(8, "Password must be at least 8 characters")
-    .refine(val => /[a-zA-Z]/.test(val) && /[0-9]/.test(val), 
+    .refine(val => /[a-zA-Z]/.test(val) && /[0-9]/.test(val),
       "Password must contain at least 1 letter and 1 number"),
   confirm_password: z.string(),
 }).refine(data => data.new_password === data.confirm_password, {
@@ -100,7 +100,7 @@ export const changePasswordSchema = z.object({
 });
 
 export const changeClassSchema = z.object({
-  new_class: z.enum(['ssc', 'hsc_1', 'hsc_2']),
+  new_class: z.enum(['ssc', 'hsc_1', 'hsc_2', 'ielts', 'medical']),
 });
 
 export const changeVersionSchema = z.object({

@@ -20,7 +20,7 @@ interface UserProfile {
   name: string;
   email: string;
   version: "bangla" | "english";
-  current_class: "ssc" | "hsc_1" | "hsc_2";
+  current_class: "ssc" | "hsc_1" | "hsc_2" | "ielts" | "medical";
 }
 
 export default function DashboardPage() {
@@ -59,12 +59,12 @@ export default function DashboardPage() {
       const res = await fetch("/api/student/selection");
       if (!res.ok) throw new Error("Failed to fetch selection");
       const data = await res.json();
-      
+
       const chapterId = data.selection?.current_chapter_id;
       if (!chapterId) {
         toast.error(
-          isBangla 
-            ? "আগে একটি অধ্যায় নির্বাচন করুন" 
+          isBangla
+            ? "আগে একটি অধ্যায় নির্বাচন করুন"
             : "Please select a chapter first"
         );
         router.push("/select-subject");
@@ -75,7 +75,7 @@ export default function DashboardPage() {
       const startRes = await fetch("/api/story/start", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ chapter_id: chapterId })
+        body: JSON.stringify({ chapter_id: chapterId }),
       });
 
       if (!startRes.ok) {
@@ -108,6 +108,8 @@ export default function DashboardPage() {
   if (!user) return null;
 
   const isBangla = user.version === "bangla";
+  const isIELTS = user.current_class === "ielts";
+  const isMedical = user.current_class === "medical";
 
   const getClassName = (cls: string) => {
     switch (cls) {
@@ -117,6 +119,10 @@ export default function DashboardPage() {
         return isBangla ? "এইচএসসি ১ম বর্ষ" : "HSC 1st Year";
       case "hsc_2":
         return isBangla ? "এইচএসসি ২য় বর্ষ" : "HSC 2nd Year";
+      case "ielts":
+        return "IELTS";
+      case "medical":
+        return "Medical";
       default:
         return cls;
     }
@@ -134,9 +140,13 @@ export default function DashboardPage() {
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 relative z-10">
             <div className="space-y-4">
               <div className="inline-flex items-center px-3 py-1 rounded-full bg-primary text-white text-xs font-bold tracking-wide shadow-sm">
-                {isBangla
-                  ? "NCTB BANGLA VERSION ACTIVE"
-                  : "NCTB ENGLISH VERSION ACTIVE"}
+                {isIELTS
+                  ? "IELTS PREP ACTIVE"
+                  : isMedical
+                    ? "MEDICAL TRACK ACTIVE"
+                    : isBangla
+                      ? "NCTB BANGLA VERSION ACTIVE"
+                      : "NCTB ENGLISH VERSION ACTIVE"}
               </div>
               <div>
                 <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900">
@@ -179,70 +189,91 @@ export default function DashboardPage() {
               {isBangla ? "পড়াশোনা শুরু করুন" : "Start Learning"}
             </p>
             <h2 className="text-3xl font-extrabold text-slate-900 mb-3 leading-tight">
-              {isBangla
-                ? "বিষয় ও অধ্যায় এক্সপ্লোর করুন"
-                : "Explore Subjects and Chapters"}
+              {isIELTS
+                ? "Explore IELTS Modules"
+                : isMedical
+                  ? "Explore Medical Modules"
+                  : isBangla
+                    ? "বিষয় ও অধ্যায় এক্সপ্লোর করুন"
+                    : "Explore Subjects and Chapters"}
             </h2>
             <p className="text-slate-600 mb-8 text-lg">
-              {isBangla
-                ? "পদার্থবিজ্ঞান ও জীববিজ্ঞান অধ্যায়সমূহের জন্য পার্সোনালাইজড স্টোরি কোয়েস্ট"
-                : "Personalized story quests for Physics and Biology chapters"}
+              {isIELTS
+                ? "AI-powered Writing, Reading and Listening practice"
+                : isMedical
+                  ? "Structured medical study modules"
+                  : isBangla
+                    ? "পদার্থবিজ্ঞান ও জীববিজ্ঞান অধ্যায়সমূহের জন্য পার্সোনালাইজড স্টোরি কোয়েস্ট"
+                    : "Personalized story quests for Physics and Biology chapters"}
             </p>
             <Button
               size="lg"
-              onClick={() => router.push("/select-subject")}
+              onClick={() =>
+                router.push(
+                  isMedical ? "/medical" : isIELTS ? "/ielts" : "/select-subject"
+                )
+              }
               className="bg-primary hover:bg-primary/95 text-white font-bold shadow-md shadow-primary/20 group text-lg px-8 h-14"
             >
-              {isBangla ? "বিষয় নির্বাচন করুন" : "Select Subject"}
+              {isIELTS || isMedical
+                ? "Select Module"
+                : isBangla
+                  ? "বিষয় নির্বাচন করুন"
+                  : "Select Subject"}
               <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
             </Button>
+            {(isIELTS || isMedical) && (
+              <p className="text-sm text-slate-500 mt-2">
+                {isMedical ? "Choose a Medical module" : "Choose an IELTS module"}
+              </p>
+            )}
           </div>
         </div>
 
-        {/* Coming Next Section */}
-        <div className="space-y-4">
-          <h3 className="text-xl font-bold text-slate-800 px-1">
-            {isBangla ? "পরবর্তী ধাপসমূহ" : "Coming Next"}
-          </h3>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm opacity-70 grayscale-[30%]">
-              <Brain className="w-8 h-8 text-primary mb-3" />
-              <p className="font-bold text-slate-800">Diagnostic Quiz</p>
-              <p className="text-sm text-slate-500 mt-1">
-                {isBangla ? "আপনার জ্ঞান মানচিত্র" : "Your knowledge map"}
-              </p>
-            </div>
-            <div 
-              onClick={handleStoryQuestClick}
-              className={`bg-white p-5 rounded-2xl border border-slate-200 shadow-sm transition-all duration-200 cursor-pointer relative overflow-hidden group
-                ${startingStory 
-                  ? 'opacity-80 cursor-wait' 
-                  : 'hover:border-primary/50 hover:shadow-md hover:-translate-y-0.5'
-                }
-              `}
-            >
-              {startingStory && (
-                <div className="absolute inset-0 bg-slate-50/50 flex items-center justify-center z-10">
-                  <Loader2 className="w-6 h-6 animate-spin text-primary" />
-                </div>
-              )}
-              <Sparkles className="w-8 h-8 text-primary mb-3 group-hover:scale-110 transition-transform" />
-              <p className="font-bold text-slate-800">Story Quest</p>
-              <p className="text-sm text-slate-500 mt-1">
-                {isBangla
-                  ? "অভিজ্ঞতার মাধ্যমে শেখা"
-                  : "Learn through experience"}
-              </p>
-            </div>
-            <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm opacity-70 grayscale-[30%]">
-              <TrendingUp className="w-8 h-8 text-primary mb-3" />
-              <p className="font-bold text-slate-800">Retention Tracker</p>
-              <p className="text-sm text-slate-500 mt-1">
-                {isBangla ? "ভুলে যাওয়া পরাজিত করুন" : "Defeat forgetting"}
-              </p>
+        {/* Coming Next Section — only for science (SSC/HSC) users */}
+        {!isIELTS && !isMedical && (
+          <div className="space-y-4">
+            <h3 className="text-xl font-bold text-slate-800 px-1">
+              {isBangla ? "পরবর্তী ধাপসমূহ" : "Coming Next"}
+            </h3>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm opacity-70 grayscale-[30%]">
+                <Brain className="w-8 h-8 text-primary mb-3" />
+                <p className="font-bold text-slate-800">Diagnostic Quiz</p>
+                <p className="text-sm text-slate-500 mt-1">
+                  {isBangla ? "আপনার জ্ঞান মানচিত্র" : "Your knowledge map"}
+                </p>
+              </div>
+              <div
+                onClick={handleStoryQuestClick}
+                className={`bg-white p-5 rounded-2xl border border-slate-200 shadow-sm transition-all duration-200 cursor-pointer relative overflow-hidden group
+                  ${startingStory
+                    ? "opacity-80 cursor-wait"
+                    : "hover:border-primary/50 hover:shadow-md hover:-translate-y-0.5"
+                  }
+                `}
+              >
+                {startingStory && (
+                  <div className="absolute inset-0 bg-slate-50/50 flex items-center justify-center z-10">
+                    <Loader2 className="w-6 h-6 animate-spin text-primary" />
+                  </div>
+                )}
+                <Sparkles className="w-8 h-8 text-primary mb-3 group-hover:scale-110 transition-transform" />
+                <p className="font-bold text-slate-800">Story Quest</p>
+                <p className="text-sm text-slate-500 mt-1">
+                  {isBangla ? "অভিজ্ঞতার মাধ্যমে শেখা" : "Learn through experience"}
+                </p>
+              </div>
+              <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm opacity-70 grayscale-[30%]">
+                <TrendingUp className="w-8 h-8 text-primary mb-3" />
+                <p className="font-bold text-slate-800">Retention Tracker</p>
+                <p className="text-sm text-slate-500 mt-1">
+                  {isBangla ? "ভুলে যাওয়া পরাজিত করুন" : "Defeat forgetting"}
+                </p>
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </main>
 
       <Footer />

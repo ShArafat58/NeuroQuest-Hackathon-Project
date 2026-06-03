@@ -21,9 +21,29 @@ import {
   X,
   ChevronRight,
   BookOpen,
+  Wifi,
+  FileText,
+  Compass,
+  Server,
+  Search,
+  Snowflake,
+  Atom,
+  Wind,
+  Flame,
+  FlaskConical,
+  Vote,
+  Megaphone,
+  Flag,
+  Award,
+  Users,
+  Star,
+  Telescope,
+  Orbit,
+  Globe,
+  MapPin,
 } from "lucide-react";
 import { toast } from "sonner";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 
 // ═══════════════════════════════════════════════════════════════
@@ -157,6 +177,174 @@ const SCENE_THEMES: Record<string, SceneTheme> = {
     accentColor: "text-pink-500",
     isDark: false,
   },
+
+  // ─── ICT Subject Scenes ───────────────────────────────────────
+  wifi: {
+    gradient: "from-blue-950 via-blue-900 to-cyan-800",
+    particleType: "signal",
+    textColor: "text-slate-100",
+    cardBg: "bg-slate-900/90 border-cyan-500/20 backdrop-blur-xl",
+    accentColor: "text-cyan-400",
+    isDark: true,
+  },
+  "file-text": {
+    gradient: "from-slate-900 via-slate-800 to-indigo-900",
+    particleType: "code",
+    textColor: "text-slate-100",
+    cardBg: "bg-slate-900/90 border-indigo-500/20 backdrop-blur-xl",
+    accentColor: "text-indigo-400",
+    isDark: true,
+  },
+  compass: {
+    gradient: "from-cyan-900 via-teal-800 to-sky-800",
+    particleType: "glow",
+    textColor: "text-slate-100",
+    cardBg: "bg-slate-900/90 border-teal-500/20 backdrop-blur-xl",
+    accentColor: "text-teal-400",
+    isDark: true,
+  },
+  server: {
+    gradient: "from-slate-950 via-slate-900 to-emerald-900",
+    particleType: "data",
+    textColor: "text-slate-100",
+    cardBg: "bg-slate-900/90 border-emerald-500/20 backdrop-blur-xl",
+    accentColor: "text-emerald-400",
+    isDark: true,
+  },
+  search: {
+    gradient: "from-violet-950 via-purple-900 to-fuchsia-800",
+    particleType: "glow",
+    textColor: "text-slate-100",
+    cardBg: "bg-slate-900/90 border-purple-500/20 backdrop-blur-xl",
+    accentColor: "text-purple-400",
+    isDark: true,
+  },
+
+  // ─── Chemistry Subject Scenes ─────────────────────────────────
+  snowflake: {
+    gradient: "from-sky-100 via-blue-50 to-white",
+    particleType: "snow",
+    textColor: "text-slate-800",
+    cardBg: "bg-white/90 border-blue-200/60 backdrop-blur-xl",
+    accentColor: "text-blue-600",
+    isDark: false,
+  },
+  atom: {
+    gradient: "from-indigo-950 via-purple-900 to-violet-900",
+    particleType: "orbit",
+    textColor: "text-slate-100",
+    cardBg: "bg-slate-900/90 border-violet-500/20 backdrop-blur-xl",
+    accentColor: "text-violet-400",
+    isDark: true,
+  },
+  wind: {
+    gradient: "from-teal-800 via-emerald-800 to-green-800",
+    particleType: "streaks",
+    textColor: "text-slate-100",
+    cardBg: "bg-slate-900/90 border-emerald-500/20 backdrop-blur-xl",
+    accentColor: "text-emerald-400",
+    isDark: true,
+  },
+  flame: {
+    gradient: "from-orange-900 via-red-900 to-rose-950",
+    particleType: "embers",
+    textColor: "text-slate-100",
+    cardBg: "bg-slate-900/90 border-orange-500/20 backdrop-blur-xl",
+    accentColor: "text-orange-400",
+    isDark: true,
+  },
+  "flask-conical": {
+    gradient: "from-rose-900 via-pink-800 to-fuchsia-900",
+    particleType: "bubbles",
+    textColor: "text-slate-100",
+    cardBg: "bg-slate-900/90 border-pink-500/20 backdrop-blur-xl",
+    accentColor: "text-pink-400",
+    isDark: true,
+  },
+
+  // ─── History Subject Scenes ───────────────────────────────────
+  vote: {
+    gradient: "from-amber-100 via-orange-50 to-stone-100",
+    particleType: "glow",
+    textColor: "text-slate-800",
+    cardBg: "bg-white/90 border-amber-200/60 backdrop-blur-xl",
+    accentColor: "text-amber-600",
+    isDark: false,
+  },
+  megaphone: {
+    gradient: "from-amber-200 via-orange-100 to-rose-50",
+    particleType: "rings",
+    textColor: "text-slate-800",
+    cardBg: "bg-white/90 border-orange-200/60 backdrop-blur-xl",
+    accentColor: "text-orange-600",
+    isDark: false,
+  },
+  flag: {
+    gradient: "from-green-900 via-emerald-900 to-red-900",
+    particleType: "glow",
+    textColor: "text-slate-100",
+    cardBg: "bg-slate-900/90 border-emerald-500/20 backdrop-blur-xl",
+    accentColor: "text-emerald-400",
+    isDark: true,
+  },
+  award: {
+    gradient: "from-yellow-700 via-amber-800 to-yellow-900",
+    particleType: "sparkles",
+    textColor: "text-slate-100",
+    cardBg: "bg-slate-900/90 border-yellow-500/20 backdrop-blur-xl",
+    accentColor: "text-yellow-400",
+    isDark: true,
+  },
+  users: {
+    gradient: "from-stone-800 via-amber-900 to-orange-900",
+    particleType: "crowd",
+    textColor: "text-slate-100",
+    cardBg: "bg-slate-900/90 border-amber-500/20 backdrop-blur-xl",
+    accentColor: "text-amber-400",
+    isDark: true,
+  },
+
+  // ─── Geography Subject Scenes ─────────────────────────────────
+  star: {
+    gradient: "from-slate-950 via-indigo-950 to-black",
+    particleType: "stars",
+    textColor: "text-slate-100",
+    cardBg: "bg-slate-900/90 border-indigo-500/20 backdrop-blur-xl",
+    accentColor: "text-indigo-400",
+    isDark: true,
+  },
+  telescope: {
+    gradient: "from-indigo-950 via-violet-900 to-purple-900",
+    particleType: "stars",
+    textColor: "text-slate-100",
+    cardBg: "bg-slate-900/90 border-violet-500/20 backdrop-blur-xl",
+    accentColor: "text-violet-400",
+    isDark: true,
+  },
+  orbit: {
+    gradient: "from-blue-950 via-indigo-900 to-purple-900",
+    particleType: "orbit",
+    textColor: "text-slate-100",
+    cardBg: "bg-slate-900/90 border-indigo-500/20 backdrop-blur-xl",
+    accentColor: "text-indigo-400",
+    isDark: true,
+  },
+  globe: {
+    gradient: "from-blue-900 via-cyan-800 to-teal-800",
+    particleType: "glow",
+    textColor: "text-slate-100",
+    cardBg: "bg-slate-900/90 border-cyan-500/20 backdrop-blur-xl",
+    accentColor: "text-cyan-400",
+    isDark: true,
+  },
+  "map-pin": {
+    gradient: "from-teal-900 via-cyan-900 to-sky-900",
+    particleType: "glow",
+    textColor: "text-slate-100",
+    cardBg: "bg-slate-900/90 border-cyan-500/20 backdrop-blur-xl",
+    accentColor: "text-cyan-400",
+    isDark: true,
+  },
 };
 
 const DEFAULT_THEME: SceneTheme = {
@@ -183,6 +371,26 @@ const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
   sun: Sun,
   moon: Moon,
   sparkles: Sparkles,
+  wifi: Wifi,
+  "file-text": FileText,
+  compass: Compass,
+  server: Server,
+  search: Search,
+  snowflake: Snowflake,
+  atom: Atom,
+  wind: Wind,
+  flame: Flame,
+  "flask-conical": FlaskConical,
+  vote: Vote,
+  megaphone: Megaphone,
+  flag: Flag,
+  award: Award,
+  users: Users,
+  star: Star,
+  telescope: Telescope,
+  orbit: Orbit,
+  globe: Globe,
+  "map-pin": MapPin,
 };
 
 // ═══════════════════════════════════════════════════════════════
@@ -190,6 +398,12 @@ const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
 // ═══════════════════════════════════════════════════════════════
 
 const SceneParticles = React.memo(function SceneParticles({ type }: { type: string }) {
+  const shouldReduceMotion = useReducedMotion();
+
+  if (shouldReduceMotion) {
+    return null;
+  }
+
   return (
     <div className="absolute inset-0 pointer-events-none overflow-hidden z-0 select-none">
       {/* Rain — vertical streaks */}
@@ -318,6 +532,279 @@ const SceneParticles = React.memo(function SceneParticles({ type }: { type: stri
             style={{ left: `${i * 14 + Math.random() * 4}%`, top: -30, willChange: "transform" }}
             animate={{ y: ["0vh", "110vh"], x: [`0vw`, `${Math.random() * 14 - 3}vw`], rotate: [0, 70] }}
             transition={{ duration: 5 + Math.random() * 2, repeat: Infinity, ease: "easeIn", delay: Math.random() * 3.5 }}
+          />
+        ))}
+
+      {/* Signal — ICT Wifi */}
+      {type === "signal" &&
+        Array.from({ length: 16 }).map((_, i) => {
+          const isRing = i % 2 === 0;
+          return isRing ? (
+            <motion.div
+              key={`sig-r-${i}`}
+              className="absolute border border-cyan-400/20 rounded-full"
+              style={{
+                left: `${20 + (i * 12) % 60}%`,
+                top: `${30 + (i * 9) % 50}%`,
+                width: 40,
+                height: 40,
+                willChange: "transform",
+              }}
+              animate={{ scale: [0.5, 2.5], opacity: [0.4, 0] }}
+              transition={{ duration: 3 + Math.random() * 2, repeat: Infinity, ease: "easeOut", delay: Math.random() * 2 }}
+            />
+          ) : (
+            <motion.div
+              key={`sig-d-${i}`}
+              className="absolute w-1.5 h-1.5 rounded-full bg-cyan-300/30 blur-[0.5px]"
+              style={{
+                left: `${15 + (i * 14) % 70}%`,
+                top: "100%",
+                willChange: "transform",
+              }}
+              animate={{ y: ["0vh", "-110vh"], x: [0, Math.sin(i) * 15, 0] }}
+              transition={{ duration: 6 + Math.random() * 4, repeat: Infinity, ease: "easeInOut", delay: Math.random() * 3 }}
+            />
+          );
+        })}
+
+      {/* Code — ICT File-Text */}
+      {type === "code" &&
+        Array.from({ length: 15 }).map((_, i) => {
+          const glyphs = ["</>", "{}", "0", "1", "[]", "bin"];
+          const glyph = glyphs[i % glyphs.length];
+          return (
+            <motion.div
+              key={`cod-${i}`}
+              className="absolute text-[10px] font-mono text-indigo-400/20"
+              style={{
+                left: `${(i * 7) % 100}%`,
+                top: `${(i * 13) % 100}%`,
+                willChange: "transform",
+              }}
+              animate={{
+                y: [0, -40, 0],
+                x: [0, Math.cos(i) * 20, 0],
+                opacity: [0.08, 0.45, 0.08],
+              }}
+              transition={{ duration: 7 + Math.random() * 5, repeat: Infinity, ease: "easeInOut" }}
+            >
+              {glyph}
+            </motion.div>
+          );
+        })}
+
+      {/* Data grid — ICT Server */}
+      {type === "data" &&
+        Array.from({ length: 20 }).map((_, i) => (
+          <motion.div
+            key={`dat-${i}`}
+            className="absolute w-2 h-2 rounded-sm bg-emerald-400/25 border border-emerald-400/40"
+            style={{
+              left: `${15 + (i % 5) * 18}%`,
+              top: `${10 + Math.floor(i / 5) * 22}%`,
+              willChange: "transform",
+            }}
+            animate={{
+              opacity: [0.05, 0.7, 0.05],
+              scale: [0.9, 1.1, 0.9],
+            }}
+            transition={{
+              duration: 1.5 + Math.random() * 2,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: Math.random() * 1.5,
+            }}
+          />
+        ))}
+
+      {/* Snow — Chemistry Snowflake */}
+      {type === "snow" &&
+        Array.from({ length: 22 }).map((_, i) => (
+          <motion.div
+            key={`sn-${i}`}
+            className="absolute w-1.5 h-1.5 rounded-full bg-blue-300/40 blur-[0.5px]"
+            style={{
+              left: `${(i * 4.7 + Math.random() * 2) % 100}%`,
+              top: -20,
+              willChange: "transform",
+            }}
+            animate={{
+              y: ["0vh", "110vh"],
+              x: [0, Math.sin(i) * 20, 0],
+            }}
+            transition={{
+              duration: 8 + Math.random() * 5,
+              repeat: Infinity,
+              ease: "linear",
+              delay: Math.random() * 7,
+            }}
+          />
+        ))}
+
+      {/* Orbiting particles — Chemistry Atom / Geography Orbit */}
+      {type === "orbit" &&
+        [
+          { left: "25%", top: "35%", r: 40, dur: 8, count: 6 },
+          { left: "75%", top: "60%", r: 60, dur: 12, count: 8 },
+        ].map((group, gIdx) => (
+          <div
+            key={`orb-g-${gIdx}`}
+            className="absolute"
+            style={{ left: group.left, top: group.top }}
+          >
+            <div className="w-3 h-3 rounded-full bg-indigo-400/20 blur-[1px] absolute -translate-x-1/2 -translate-y-1/2" />
+            {Array.from({ length: group.count }).map((_, i) => {
+              const angle = (i / group.count) * 360;
+              return (
+                <motion.div
+                  key={`orb-d-${gIdx}-${i}`}
+                  className="absolute w-1.5 h-1.5 rounded-full bg-purple-400/40"
+                  style={{
+                    transformOrigin: `0px ${group.r}px`,
+                    top: -group.r,
+                    left: 0,
+                    willChange: "transform",
+                  }}
+                  animate={{
+                    rotate: [angle, angle + 360],
+                  }}
+                  transition={{
+                    duration: group.dur,
+                    repeat: Infinity,
+                    ease: "linear",
+                  }}
+                />
+              );
+            })}
+          </div>
+        ))}
+
+      {/* Wind streaks — Chemistry Wind */}
+      {type === "streaks" &&
+        Array.from({ length: 14 }).map((_, i) => (
+          <motion.div
+            key={`str-${i}`}
+            className="absolute h-px bg-gradient-to-r from-transparent via-teal-300/20 to-transparent"
+            style={{
+              left: -200,
+              top: `${15 + (i * 7) % 75}%`,
+              width: 120 + (i * 25) % 150,
+              willChange: "transform",
+            }}
+            animate={{
+              x: ["0vw", "120vw"],
+            }}
+            transition={{
+              duration: 6 + Math.random() * 4,
+              repeat: Infinity,
+              ease: "linear",
+              delay: Math.random() * 5,
+            }}
+          />
+        ))}
+
+      {/* Embers — Chemistry Flame */}
+      {type === "embers" &&
+        Array.from({ length: 22 }).map((_, i) => (
+          <motion.div
+            key={`emb-${i}`}
+            className="absolute w-1.5 h-1.5 rounded-full bg-gradient-to-t from-amber-400/40 to-orange-500/40 blur-[0.5px]"
+            style={{
+              left: `${(i * 4.9 + Math.random() * 2) % 100}%`,
+              top: "100%",
+              willChange: "transform",
+            }}
+            animate={{
+              y: ["0vh", "-110vh"],
+              x: [0, Math.sin(i) * 15, 0],
+              scale: [1, 1.4, 0.6],
+            }}
+            transition={{
+              duration: 4 + Math.random() * 2.5,
+              repeat: Infinity,
+              ease: "easeOut",
+              delay: Math.random() * 4,
+            }}
+          />
+        ))}
+
+      {/* Bubbles — Chemistry Flask-Conical */}
+      {type === "bubbles" &&
+        Array.from({ length: 18 }).map((_, i) => (
+          <motion.div
+            key={`bub-${i}`}
+            className="absolute rounded-full border border-pink-400/20 bg-pink-500/[0.04]"
+            style={{
+              left: `${10 + (i * 6) % 80}%`,
+              top: "100%",
+              width: 6 + (i % 3) * 4,
+              height: 6 + (i % 3) * 4,
+              willChange: "transform",
+            }}
+            animate={{
+              y: ["0vh", "-110vh"],
+              x: [0, Math.cos(i) * 18, 0],
+              opacity: [0.15, 0.6, 0],
+            }}
+            transition={{
+              duration: 5 + Math.random() * 3,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: Math.random() * 5,
+            }}
+          />
+        ))}
+
+      {/* Sound rings — History Megaphone */}
+      {type === "rings" &&
+        Array.from({ length: 6 }).map((_, i) => (
+          <motion.div
+            key={`rng-${i}`}
+            className="absolute border-2 border-orange-400/10 rounded-full"
+            style={{
+              left: "50%",
+              top: "40%",
+              width: 80,
+              height: 80,
+              marginLeft: -40,
+              marginTop: -40,
+              willChange: "transform",
+            }}
+            animate={{
+              scale: [0.2, 5.5],
+              opacity: [0.35, 0],
+            }}
+            transition={{
+              duration: 4,
+              repeat: Infinity,
+              ease: "easeOut",
+              delay: i * 0.75,
+            }}
+          />
+        ))}
+
+      {/* Crowd motes — History Users */}
+      {type === "crowd" &&
+        Array.from({ length: 25 }).map((_, i) => (
+          <motion.div
+            key={`crw-${i}`}
+            className="absolute w-1 h-1 rounded-full bg-amber-400/25"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              willChange: "transform",
+            }}
+            animate={{
+              x: [0, Math.cos(i) * 20, 0],
+              y: [0, Math.sin(i) * 20, 0],
+              opacity: [0.1, 0.6, 0.1],
+            }}
+            transition={{
+              duration: 8 + Math.random() * 6,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
           />
         ))}
     </div>
