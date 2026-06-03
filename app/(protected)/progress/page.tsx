@@ -328,8 +328,8 @@ export default function ProgressPage() {
                         boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
                         fontSize: "13px",
                       }}
-                      formatter={(value: number) => [
-                        `${formatNum(value)}%`,
+                      formatter={(value) => [
+                        `${formatNum(Number(value) || 0)}%`,
                         isBangla ? "স্কোর" : "Score",
                       ]}
                     />
