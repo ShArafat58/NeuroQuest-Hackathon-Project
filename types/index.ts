@@ -6,6 +6,8 @@ export interface User {
   version: "bangla" | "english";
   current_class: "ssc" | "hsc_1" | "hsc_2" | "ielts";
   email_verified: boolean;
+  security_question?: string;
+  security_answer_hash?: string;
   created_at: string;
   updated_at: string;
 }

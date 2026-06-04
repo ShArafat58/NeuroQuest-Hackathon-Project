@@ -28,6 +28,7 @@ import {
   Sparkles,
   ArrowRight,
   Loader2,
+  HelpCircle,
 } from "lucide-react";
 
 export default function SignupPage() {
@@ -51,6 +52,8 @@ export default function SignupPage() {
       confirm_password: "",
       version: "bangla",
       current_class: "ssc",
+      security_question: "",
+      security_answer: "",
     },
   });
 
@@ -110,14 +113,14 @@ export default function SignupPage() {
         <div className="space-y-6 my-auto max-w-md">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 border border-white/20 text-xs font-semibold text-white/90">
             <Sparkles className="w-3.5 h-3.5" />
-            <span>NCTB Science Platform</span>
+            <span>SSC • HSC • IELTS • Medical Prep</span>
           </div>
           <h2 className="text-4xl font-extrabold leading-tight">
             Learn Once. <br />
             Remember Forever.
           </h2>
           <p className="text-white/80 text-sm leading-relaxed">
-            Stop studying to forget. Our personalized narrative learning quests integrate with spaced retrieval mechanics to convert abstract Physics and Biology equations into natural, lifelong intuition.
+            Stop studying to forget. Our personalized narrative learning quests integrate with spaced retrieval mechanics to convert complex concepts into natural, lifelong intuition—supporting multiple academic tracks with Science as our flagship.
           </p>
 
           <div className="space-y-3 pt-6 border-t border-white/10 text-xs text-white/70">
@@ -148,7 +151,7 @@ export default function SignupPage() {
           <div className="text-center lg:text-left space-y-2 mb-6">
             <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900">Create Account</h1>
             <p className="text-sm text-slate-500">
-              Join NeuroQuest and master Physics &amp; Biology today.
+              Join NeuroQuest and begin your multi-track learning journey today.
             </p>
           </div>
 
@@ -335,6 +338,63 @@ export default function SignupPage() {
               </div>
               {errors.confirm_password && (
                 <p className="text-xs text-red-500 font-semibold">{errors.confirm_password.message}</p>
+              )}
+            </div>
+
+            {/* Security Question Select */}
+            <div className="space-y-1.5">
+              <Label htmlFor="security_question" className="text-xs font-bold text-slate-700">নিরাপত্তা প্রশ্ন / Security Question</Label>
+              <div className="relative">
+                <HelpCircle className="absolute left-3 top-3 w-4 h-4 text-slate-400 z-10" />
+                <Controller
+                  control={control}
+                  name="security_question"
+                  render={({ field }) => (
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <SelectTrigger className="pl-10">
+                        <SelectValue placeholder="একটি প্রশ্ন নির্বাচন করুন / Select a question" />
+                      </SelectTrigger>
+                      <SelectContent className="bg-white border border-border">
+                        <SelectItem value="তোমার প্রথম স্কুলের নাম? / Name of your first school?" className="cursor-pointer">
+                          তোমার প্রথম স্কুলের নাম? / Name of your first school?
+                        </SelectItem>
+                        <SelectItem value="তোমার প্রিয় শিক্ষকের নাম? / Your favourite teacher's name?" className="cursor-pointer">
+                          তোমার প্রিয় শিক্ষকের নাম? / Your favourite teacher's name?
+                        </SelectItem>
+                        <SelectItem value="তোমার জন্মশহরের নাম? / Your city of birth?" className="cursor-pointer">
+                          তোমার জন্মশহরের নাম? / Your city of birth?
+                        </SelectItem>
+                        <SelectItem value="তোমার প্রথম পোষা প্রাণীর নাম? / Your first pet's name?" className="cursor-pointer">
+                          তোমার প্রথম পোষা প্রাণীর নাম? / Your first pet's name?
+                        </SelectItem>
+                      </SelectContent>
+                    </Select>
+                  )}
+                />
+              </div>
+              {errors.security_question && (
+                <p className="text-xs text-red-500 font-semibold">{errors.security_question.message}</p>
+              )}
+            </div>
+
+            {/* Security Answer Input */}
+            <div className="space-y-1.5">
+              <Label htmlFor="security_answer" className="text-xs font-bold text-slate-700">নিরাপত্তা উত্তর / Security Answer</Label>
+              <div className="relative">
+                <Lock className="absolute left-3 top-3 w-4 h-4 text-slate-400" />
+                <Input
+                  id="security_answer"
+                  type="text"
+                  placeholder="আপনার উত্তর লিখুন / Enter your answer"
+                  className="pl-10"
+                  {...register("security_answer")}
+                />
+              </div>
+              {errors.security_answer && (
+                <p className="text-xs text-red-500 font-semibold">{errors.security_answer.message}</p>
               )}
             </div>
 

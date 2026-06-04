@@ -44,7 +44,7 @@ export default function LandingPage() {
                 </div>
 
                 <p className="text-slate-600 text-base sm:text-lg leading-relaxed">
-                  NeuroQuest &mdash; Bangladesh's first AI-native narrative learning platform for science students. Defeat the cram-test-forget cycle through curriculum-accurate, personalized story quests that fight the Ebbinghaus forgetting curve.
+                  NeuroQuest &mdash; Bangladesh's first AI-native narrative learning platform for SSC, HSC, IELTS, and Medical learners. Defeat the cram-test-forget cycle through curriculum-accurate, personalized story quests (with flagship Science tracks fully active, and other tracks expanding).
                 </p>
 
                 <div className="flex flex-col sm:flex-row gap-4 pt-2">
@@ -66,7 +66,7 @@ export default function LandingPage() {
                     <BookOpen className="w-4 h-4 text-primary" />
                     NCTB Curriculum mapped
                   </span>
-                  <span>SSC &bull; HSC Science</span>
+                  <span>SSC &bull; HSC &bull; IELTS &bull; Medical</span>
                 </div>
               </div>
 
@@ -100,7 +100,7 @@ export default function LandingPage() {
                 How <span className="bg-gradient-to-r from-[#6D5EF5] to-[#5B8DEF] bg-clip-text text-transparent">NeuroQuest Works</span>
               </h2>
               <p className="text-slate-500 text-base sm:text-lg leading-relaxed pt-1">
-                We synthesize advanced brain science with interactive narrative quests to make complex Physics and Biology concepts unforgettable.
+                We synthesize advanced brain science with interactive narrative quests to make concepts unforgettable—starting with flagship Physics and Biology courses as we expand to other tracks.
               </p>
             </div>
 

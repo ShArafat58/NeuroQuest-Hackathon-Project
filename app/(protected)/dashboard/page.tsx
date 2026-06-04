@@ -203,8 +203,8 @@ export default function DashboardPage() {
                 : isMedical
                   ? "Structured medical study modules"
                   : isBangla
-                    ? "পদার্থবিজ্ঞান ও জীববিজ্ঞান অধ্যায়সমূহের জন্য পার্সোনালাইজড স্টোরি কোয়েস্ট"
-                    : "Personalized story quests for Physics and Biology chapters"}
+                    ? "আপনার সব বিষয়ের জন্য পার্সোনালাইজড স্টোরি কোয়েস্ট"
+                    : "PPersonalized story quests across all your SSC subjects"}
             </p>
             <Button
               size="lg"

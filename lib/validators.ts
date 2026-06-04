@@ -57,6 +57,8 @@ export const signupSchema = z
     current_class: z.enum(["ssc", "hsc_1", "hsc_2", "ielts", "medical"], {
       message: "Please select your current class",
     }),
+    security_question: z.string().min(1, "Please select a security question"),
+    security_answer: z.string().trim().min(1, "Security answer is required"),
   })
   .refine((data) => data.password === data.confirm_password, {
     message: "Passwords do not match",
@@ -112,6 +114,27 @@ export const selectionSchema = z.object({
   chapter_id: z.string().uuid(),
 });
 
+export const lookupQuestionSchema = z.object({
+  email: z.string().trim().email("Please enter a valid email address"),
+});
+
+export const verifyAnswerSchema = z.object({
+  email: z.string().trim().email("Please enter a valid email address"),
+  security_answer: z.string().trim().min(1, "Security answer is required"),
+});
+
+export const setNewPasswordSchema = z
+  .object({
+    email: z.string().trim().email("Please enter a valid email address"),
+    security_answer: z.string().trim().min(1, "Security answer is required"),
+    password: passwordSchema,
+    confirm_password: z.string(),
+  })
+  .refine((data) => data.password === data.confirm_password, {
+    message: "Passwords do not match",
+    path: ["confirm_password"],
+  });
+
 export type SignupInput = z.infer<typeof signupSchema>;
 export type LoginInput = z.infer<typeof loginSchema>;
 export type ForgotPasswordInput = z.infer<typeof forgotPasswordSchema>;
@@ -121,3 +144,6 @@ export type ChangePasswordInput = z.infer<typeof changePasswordSchema>;
 export type ChangeClassInput = z.infer<typeof changeClassSchema>;
 export type ChangeVersionInput = z.infer<typeof changeVersionSchema>;
 export type SelectionInput = z.infer<typeof selectionSchema>;
+export type LookupQuestionInput = z.infer<typeof lookupQuestionSchema>;
+export type VerifyAnswerInput = z.infer<typeof verifyAnswerSchema>;
+export type SetNewPasswordInput = z.infer<typeof setNewPasswordSchema>;

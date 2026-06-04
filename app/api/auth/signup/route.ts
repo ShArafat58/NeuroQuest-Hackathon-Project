@@ -18,7 +18,7 @@ export async function POST(request: Request) {
       );
     }
 
-    const { full_name, email, password, birthdate, version, current_class } = parsed.data;
+    const { full_name, email, password, birthdate, version, current_class, security_question, security_answer } = parsed.data;
 
     // 2. Check if a user with this email is already registered
     const { data: existingUser, error: checkError } = await supabaseServer
@@ -42,8 +42,10 @@ export async function POST(request: Request) {
       );
     }
 
-    // 3. Hash the plain password using bcryptjs
+    // 3. Hash the plain password & security answer using bcryptjs
     const passwordHash = await hashPassword(password);
+    const sanitizedAnswer = security_answer.trim().toLowerCase();
+    const securityAnswerHash = await hashPassword(sanitizedAnswer);
 
     // 4. Insert the new user into our Postgres database (initially unverified)
     const formattedBirthdate = new Date(birthdate).toISOString().split("T")[0];
@@ -57,6 +59,8 @@ export async function POST(request: Request) {
         version,
         current_class,
         email_verified: true, // DEMO: OTP email bypass — auto-verified for hackathon demo
+        security_question,
+        security_answer_hash: securityAnswerHash,
       })
       .select("id, full_name, version")
       .single();
