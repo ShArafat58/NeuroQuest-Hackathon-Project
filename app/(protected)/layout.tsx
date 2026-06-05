@@ -14,7 +14,7 @@ export default function ProtectedLayout({
   const isStoryPage = pathname ? pathname.startsWith("/story") : false;
 
   return (
-    <div className="relative min-h-screen flex flex-col bg-transparent">
+    <div className="relative min-h-screen flex flex-col bg-transparent isolate">
       {!isStoryPage && <ParallaxBackground />}
       {children}
       <ChatWidget />
