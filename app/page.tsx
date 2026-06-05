@@ -72,14 +72,14 @@ export default function LandingPage() {
 
               {/* Right Side: cover-image.png (displays without cropping) */}
               <div className="flex justify-center items-center w-full lg:justify-end">
-                <div className="relative w-full max-w-[720px] h-[380px] sm:h-[500px] lg:h-[580px] rounded-3xl overflow-hidden bg-slate-100/40 border border-gray-100/80 p-2 shadow-2xl shadow-slate-200/50">
-                  <div className="relative w-full h-full rounded-2xl overflow-hidden bg-white">
+                <div className="relative w-full max-w-[800px] h-[420px] sm:h-[540px] lg:h-[640px] rounded-3xl overflow-hidden shadow-2xl shadow-slate-200/50">
+                  <div className="relative w-full h-full rounded-2xl overflow-hidden">
                     <Image
                       src="/cover-image.png"
                       alt="Student transformation: Before & After learning with NeuroQuest story-quests"
                       fill
                       priority
-                      className="object-contain p-4"
+                      className="object-contain"
                     />
                   </div>
                 </div>
