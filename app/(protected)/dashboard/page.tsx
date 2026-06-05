@@ -204,7 +204,7 @@ export default function DashboardPage() {
                   ? "Structured medical study modules"
                   : isBangla
                     ? "আপনার সব বিষয়ের জন্য পার্সোনালাইজড স্টোরি কোয়েস্ট"
-                    : "PPersonalized story quests across all your SSC subjects"}
+                    : "Personalized story quests across all your SSC subjects"}
             </p>
             <Button
               size="lg"

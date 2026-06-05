@@ -102,7 +102,7 @@ export default function SelectSubjectPage() {
   if (loading) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-transparent">
-        <Loader2 className="w-10 h-10 animate-spin text-primary" />
+        <Loader2 className="w-10 h-10 animate-spin text-white" />
       </div>
     );
   }
@@ -127,17 +127,17 @@ export default function SelectSubjectPage() {
       <main className="flex-1 container mx-auto px-4 py-8 max-w-5xl">
         {/* Breadcrumb */}
         <div className="mb-6">
-          <Link href="/dashboard" className="text-primary hover:underline font-medium text-sm flex items-center">
+          <Link href="/dashboard" className="text-white hover:underline font-medium text-sm flex items-center">
             &larr; {getClassName(user.current_class)}
           </Link>
         </div>
 
         {/* Heading */}
         <div className="text-center mb-10">
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 mb-3">
+          <h1 className="text-3xl sm:text-4xl font-extrabold text-white mb-3">
             {isBangla ? "বিষয় নির্বাচন করুন" : "Select Subject"}
           </h1>
-          <p className="text-slate-500 text-lg">
+          <p className="text-white/80 text-lg">
             {isBangla ? "আপনি কোন বিষয় পড়তে চান?" : "Which subject would you like to study?"}
           </p>
         </div>
@@ -171,8 +171,8 @@ export default function SelectSubjectPage() {
 
         {/* Subject না থাকলে */}
         {subjects.length === 0 && (
-          <p className="text-center text-slate-400 mt-10">
-            {isBangla ? "কোনো বিষয় পাওয়া যায়নি।" : "No subjects found."}
+          <p className="text-center text-white/100 mt-10">
+            {isBangla ? "শীঘ্রই আসছে।" : "Coming soon."}
           </p>
         )}
       </main>

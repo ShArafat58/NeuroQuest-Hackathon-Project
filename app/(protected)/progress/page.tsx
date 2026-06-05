@@ -84,7 +84,7 @@ export default function ProgressPage() {
       .then((d) => {
         if (d) setData(d);
       })
-      .catch(() => {})
+      .catch(() => { })
       .finally(() => setLoading(false));
   }, [router]);
 
@@ -99,8 +99,8 @@ export default function ProgressPage() {
 
   const conceptTotal = data
     ? data.concept_breakdown.strong +
-      data.concept_breakdown.developing +
-      data.concept_breakdown.weak
+    data.concept_breakdown.developing +
+    data.concept_breakdown.weak
     : 0;
 
   const conceptBar = (
@@ -170,7 +170,7 @@ export default function ProgressPage() {
             <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight">
               {isBangla ? "আমার উন্নতি" : "My Progress"}
             </h1>
-            <p className="text-slate-500 mt-1">
+            <p className="text-white mt-1">
               {isBangla
                 ? "তোমার শেখার অগ্রগতি এক নজরে"
                 : "Your learning progress at a glance"}
@@ -207,8 +207,8 @@ export default function ProgressPage() {
                   ? `${formatNum(data.stats.current_streak)} দিন`
                   : `${formatNum(data.stats.current_streak)} days`
                 : isBangla
-                ? "০ দিন"
-                : "0 days"}
+                  ? "০ দিন"
+                  : "0 days"}
             </p>
           </div>
 
@@ -293,8 +293,8 @@ export default function ProgressPage() {
                       ? "আরো একটি কুইজ দিলে ট্রেন্ড দেখা যাবে"
                       : "Take one more quiz to see a trend"
                     : isBangla
-                    ? "এখনো ডেটা নেই — একটা কুইজ দিয়ে শুরু করো"
-                    : "No data yet — start with a quiz to see trend"}
+                      ? "এখনো ডেটা নেই — একটা কুইজ দিয়ে শুরু করো"
+                      : "No data yet — start with a quiz to see trend"}
                 </p>
               </div>
             ) : (

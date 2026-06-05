@@ -10,23 +10,23 @@ export default function MedicalHub() {
             <Header />
             <main className="flex-1 container mx-auto px-4 py-8 max-w-5xl space-y-8">
                 <div className="flex items-center gap-4 mb-2">
-                    <Link href="/dashboard" className="flex items-center text-primary hover:underline">
+                    <Link href="/dashboard" className="flex items-center text-white hover:underline">
                         <ArrowLeft className="w-4 h-4" />
-                        <span>← Back to Dashboard</span>
+                        <span>Back to Dashboard</span>
                     </Link>
                 </div>
 
                 <div>
-                    <h1 className="text-3xl font-bold text-slate-900 mb-1">Medical Modules</h1>
-                    <p className="text-slate-500">Structured study modules for medical foundations.</p>
+                    <h1 className="text-3xl font-bold text-black mb-1">Medical Modules</h1>
+                    <p className="text-white/80">Structured study modules for medical foundations.</p>
                 </div>
 
                 {/* PART 1 | Basic Principles */}
                 <div className="space-y-4">
                     <div className="flex items-center gap-2">
-                        <span className="text-xs font-bold uppercase tracking-widest text-primary">Part 1</span>
-                        <span className="text-slate-300">|</span>
-                        <h2 className="text-lg font-bold text-slate-800">Basic Principles</h2>
+                        <span className="text-xs font-bold uppercase tracking-widest text-white">Part 1</span>
+                        <span className="text-white/50">|</span>
+                        <h2 className="text-lg font-bold text-white">Basic Principles</h2>
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -53,7 +53,7 @@ export default function MedicalHub() {
                     </div>
                 </div>
 
-                <p className="text-sm text-slate-400 italic">
+                <p className="text-sm text-white/70 italic">
                     More parts and chapters are being added soon. Stay tuned!
                 </p>
             </main>

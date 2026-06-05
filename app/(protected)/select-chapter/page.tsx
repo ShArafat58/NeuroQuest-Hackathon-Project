@@ -13,7 +13,7 @@ function ChapterSelectionContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const subjectCode = searchParams.get("subject");
-  
+
   const [user, setUser] = useState<any>(null);
   const [subject, setSubject] = useState<any>(null);
   const [chapters, setChapters] = useState<any[]>([]);
@@ -110,7 +110,7 @@ function ChapterSelectionContent() {
 
   const isBangla = user.version === "bangla";
   const subjectName = isBangla ? subject?.name_bn : subject?.name_en;
-  
+
   const getClassName = (cls: string) => {
     switch (cls) {
       case "ssc": return isBangla ? "শ্রেণী ৯-১০" : "Class 9-10";
@@ -161,7 +161,7 @@ function ChapterSelectionContent() {
                 <div className="w-16 h-16 shrink-0 bg-primary/10 text-primary rounded-2xl flex items-center justify-center text-2xl font-black">
                   {chapNum}
                 </div>
-                
+
                 <div className="flex-1">
                   <h2 className="text-2xl font-bold text-slate-900 mb-2">
                     {isBangla ? chapter.title_bn : chapter.title_en}
@@ -180,7 +180,7 @@ function ChapterSelectionContent() {
                 </div>
 
                 <div className="w-full md:w-auto shrink-0 mt-4 md:mt-0">
-                  <Button 
+                  <Button
                     size="lg"
                     className="w-full md:w-auto bg-gradient-to-r from-[#6D5EF5] to-[#5B8DEF] text-white hover:shadow-lg hover:shadow-purple-500/25 transition-all duration-200 shadow-md font-bold px-8"
                     onClick={() => handleSelectChapter(chapter.id)}
@@ -206,12 +206,12 @@ function ChapterSelectionContent() {
               <Lock className="w-8 h-8" />
             </div>
             <div>
-              <h2 className="text-xl font-bold text-slate-700 mb-2">
+              <h2 className="text-xl font-bold text-slate-1000 mb-2">
                 {isBangla ? "আরও অধ্যায় শীঘ্রই আসছে" : "More chapters coming soon"}
               </h2>
-              <p className="text-slate-500">
-                {isBangla 
-                  ? "আমরা আরো অধ্যায় নিয়ে কাজ করছি।" 
+              <p className="text-slate-1000">
+                {isBangla
+                  ? "আমরা আরো অধ্যায় নিয়ে কাজ করছি।"
                   : "We're working on more chapters. Stay tuned!"}
               </p>
             </div>

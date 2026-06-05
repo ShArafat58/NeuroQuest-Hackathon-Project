@@ -10,9 +10,9 @@ export default function IELTSHub() {
       <Header />
       <main className="flex-1 container mx-auto px-4 py-8 max-w-5xl space-y-8">
         <div className="flex items-center gap-4 mb-6">
-          <Link href="/dashboard" className="flex items-center text-primary hover:underline">
+          <Link href="/dashboard" className="flex items-center text-white hover:underline">
             <ArrowLeft className="w-4 h-4" />
-            <span>← Back to Dashboard</span>
+            <span>Back to Dashboard</span>
           </Link>
         </div>
         <h1 className="text-3xl font-bold text-slate-900 mb-4">IELTS Modules</h1>
