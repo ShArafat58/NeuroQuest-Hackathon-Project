@@ -17,7 +17,7 @@ export default function LandingPage() {
       {/* Main Container */}
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="relative overflow-hidden py-16 lg:py-24" style={{ background: "linear-gradient(180deg, #A8B4D6 0%, #4A5A8A 100%)" }}>
+        <section className="relative overflow-hidden py-16 lg:py-24" style={{ background: "linear-gradient(120deg, #A8D4E8 0%, #C2E58A 100%)" }}>
           {/* Subtle decorative background circles */}
           <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-primary/5 rounded-full blur-3xl pointer-events-none" />
           <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-secondary/5 rounded-full blur-3xl pointer-events-none" />
@@ -30,13 +30,13 @@ export default function LandingPage() {
                   <Stars className="w-3.5 h-3.5" />
                   <span>AI-Native learning in Bangla &amp; English</span>
                 </div>
-                
+
                 <div className="space-y-3">
                   <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-slate-900 leading-tight">
                     Learn Once. <br />
-                  <span className="text-primary bg-gradient-to-r from-[#A8B4D6] to-[#4A5A8A] bg-clip-text text-transparent">
-                    Remember Forever.
-                  </span>
+                    <span className="text-primary bg-gradient-to-r from-[#A8B4D6] to-[#4A5A8A] bg-clip-text text-transparent">
+                      Remember Forever.
+                    </span>
                   </h1>
                   <h2 className="text-2xl sm:text-3xl font-bold text-secondary-600 font-bengali leading-snug">
                     একবার শিখো। চিরকাল মনে রাখো।
