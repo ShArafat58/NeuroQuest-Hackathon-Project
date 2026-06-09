@@ -348,7 +348,7 @@ export default function DocsPage() {
                   <ul className="space-y-2 text-slate-600">
                     <li className="flex items-center gap-2">
                       <span className="w-1.5 h-1.5 rounded-full bg-[#6D5EF5]"></span>
-                      <span>SSC & HSC Science Students (旗舰 Flagship)</span>
+                      <span>SSC & HSC Science Students</span>
                     </li>
                     <li className="flex items-center gap-2">
                       <span className="w-1.5 h-1.5 rounded-full bg-[#6D5EF5]"></span>
@@ -885,7 +885,7 @@ export default function DocsPage() {
                 <TeamMemberCard name="Meherun Ritu" role="Team leader, Communication lead, Business Analyst" email="ritunesa@gmail.com" initials="MR" />
                 <TeamMemberCard name="Tahsin Shuborna" role="UI/UX designer ,Frontend developer ,Project Coordinator" email="shujaanat06@gmail.com" initials="TS" />
                 <TeamMemberCard name="Shahriar Hossain Arafat" role="Backend/Database/Scraper Engineer, Full stack developer, Communication lead " email="shahriararafat20@gmail.com" initials="SHA" />
-                <TeamMemberCard name="Farjana Nabila" role="Product Strategist " email="nabila@gmail.com" initials="FN" />
+                <TeamMemberCard name="Farjana Nabila" role="Product Strategist " email="farjanaknabila4936@gmail.com" initials="FN" />
               </div>
             </section>
 
