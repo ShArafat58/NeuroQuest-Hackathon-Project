@@ -50,7 +50,7 @@ export default function Header({ user: propUser }: HeaderProps) {
             setCurrentLang(data.user.version);
           }
         })
-        .catch(() => {});
+        .catch(() => { });
     } else {
       setUser(propUser);
       setCurrentLang(propUser.version);
@@ -67,7 +67,7 @@ export default function Header({ user: propUser }: HeaderProps) {
             setStats(data);
           }
         })
-        .catch(() => {})
+        .catch(() => { })
         .finally(() => setLoadingStats(false));
     }
   }, [user]);
@@ -95,7 +95,7 @@ export default function Header({ user: propUser }: HeaderProps) {
   const toggleLanguage = async () => {
     const nextLang = currentLang === "bangla" ? "english" : "bangla";
     setCurrentLang(nextLang);
-    
+
     if (user) {
       try {
         const res = await fetch("/api/user/change-version", {
@@ -143,18 +143,24 @@ export default function Header({ user: propUser }: HeaderProps) {
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
         {/* Left Side: Logo & Brand */}
         <Link href={user ? "/dashboard" : "/"} className="flex items-center gap-2 hover:opacity-90 transition-opacity">
-          <div className="relative w-8 h-8 flex items-center justify-center bg-primary rounded-lg text-white font-black overflow-hidden">
-            <Image src="/logo.svg" alt="N" width={32} height={32} />
+          <div className="relative w-10 h-10 flex items-center justify-center bg-primary rounded-lg text-white font-black overflow-hidden">
+            <Image src="/logo.svg" alt="N" width={40} height={40} />
           </div>
           <div className="flex flex-col">
-            <span className="font-extrabold text-lg text-primary leading-none tracking-tight">NeuroQuest</span>
+            <span className="font-extrabold text-2xl text-primary leading-none tracking-tight">NeuroQuest</span>
             <span className="text-[10px] text-secondary font-bold tracking-widest uppercase">স্মৃতিযোদ্ধা</span>
           </div>
         </Link>
 
         {/* Right Side: Stats, Language & User Dropdown */}
         <div className="flex items-center gap-4">
-          
+          <Link
+            href="/docs"
+            className="text-sm font-semibold text-slate-700 hover:text-[#6D5EF5] hover:bg-slate-50 transition-colors px-3 py-1.5 rounded-lg"
+          >
+            Overview
+          </Link>
+
           {/* Stats Display */}
           {user && (
             <div className="flex items-center gap-2 mr-2">
@@ -170,7 +176,7 @@ export default function Header({ user: propUser }: HeaderProps) {
                       <span className="hidden sm:inline"> {isBangla ? "দিন" : "days"}</span>
                     </span>
                   </div>
-                  
+
                   {/* XP Pill */}
                   <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm" style={{ backgroundColor: '#EEF0FF', color: '#3C3489' }}>
                     <Zap className="w-4 h-4" style={{ color: '#6D5EF5' }} />
@@ -179,10 +185,10 @@ export default function Header({ user: propUser }: HeaderProps) {
                       <span className="hidden sm:inline"> XP</span>
                     </span>
                   </div>
-                  
+
                   {/* Rank Badge */}
-                  <div 
-                    className="hidden sm:flex items-center px-3 py-1.5 rounded-full text-sm font-medium" 
+                  <div
+                    className="hidden sm:flex items-center px-3 py-1.5 rounded-full text-sm font-medium"
                     style={{ backgroundColor: userRank.bg, color: userRank.color }}
                   >
                     {isBangla ? userRank.name : userRank.nameEn}

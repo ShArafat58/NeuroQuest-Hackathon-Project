@@ -17,72 +17,59 @@ export default function LandingPage() {
       {/* Main Container */}
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="relative overflow-hidden py-16 lg:py-24" style={{ background: "linear-gradient(120deg, #A8D4E8 0%, #C2E58A 100%)" }}>
-          {/* Subtle decorative background circles */}
-          <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-primary/5 rounded-full blur-3xl pointer-events-none" />
-          <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-secondary/5 rounded-full blur-3xl pointer-events-none" />
+        <section className="relative overflow-hidden bg-slate-900 py-24 lg:py-36">
+          {/* Background image + dark overlay */}
+          <div className="absolute inset-0 z-0">
+            <img
+              src="https://images.pexels.com/photos/5212345/pexels-photo-5212345.jpeg?auto=compress&cs=tinysrgb&w=1920"
+              alt=""
+              aria-hidden="true"
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-slate-900/95 via-slate-900/80 to-slate-900/40" />
+          </div>
 
-          <div className="container mx-auto px-4 relative">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-8 items-center">
-              {/* Left Side: Headline & CTAs (with subtle glassmorphic card wrapper) */}
-              <div className="flex flex-col space-y-6 max-w-xl bg-white/40 backdrop-blur-md border border-white/20 p-8 rounded-2xl shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-xs font-semibold text-primary w-fit animate-pulse">
-                  <Stars className="w-3.5 h-3.5" />
-                  <span>AI-Native learning in Bangla &amp; English</span>
-                </div>
-
-                <div className="space-y-3">
-                  <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-slate-900 leading-tight">
-                    Learn Once. <br />
-                    <span className="text-primary bg-gradient-to-r from-[#A8B4D6] to-[#4A5A8A] bg-clip-text text-transparent">
-                      Remember Forever.
-                    </span>
-                  </h1>
-                  <h2 className="text-2xl sm:text-3xl font-bold text-secondary-600 font-bengali leading-snug">
-                    একবার শিখো। চিরকাল মনে রাখো।
-                  </h2>
-                </div>
-
-                <p className="text-slate-600 text-base sm:text-lg leading-relaxed">
-                  NeuroQuest &mdash; Bangladesh's first AI-native narrative learning platform for SSC, HSC, IELTS, and Medical learners. Defeat the cram-test-forget cycle through curriculum-accurate, personalized story quests (with flagship Science tracks fully active, and other tracks expanding).
-                </p>
-
-                <div className="flex flex-col sm:flex-row gap-4 pt-2">
-                  <Link href="/signup" className="w-full sm:w-auto">
-                    <Button size="lg" className="w-full sm:w-auto bg-gradient-to-r from-[#6D5EF5] to-[#5B8DEF] text-white hover:shadow-lg hover:shadow-purple-500/25 transition-all duration-200 font-bold shadow-md shadow-primary/20 group">
-                      <span>Start Free</span>
-                      <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-                    </Button>
-                  </Link>
-                  <Link href="/login" className="w-full sm:w-auto">
-                    <Button size="lg" variant="outline" className="w-full sm:w-auto border-slate-300 text-slate-700 hover:bg-slate-100 font-bold">
-                      Login
-                    </Button>
-                  </Link>
-                </div>
-
-                <div className="flex items-center gap-6 pt-4 text-xs font-semibold text-slate-500 border-t border-gray-100/50">
-                  <span className="flex items-center gap-1">
-                    <BookOpen className="w-4 h-4 text-primary" />
-                    NCTB Curriculum mapped
-                  </span>
-                  <span>SSC &bull; HSC &bull; IELTS &bull; Medical</span>
-                </div>
+          <div className="container mx-auto px-4 relative z-10">
+            <div className="max-w-3xl">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-500/15 border border-indigo-400/30 text-xs font-semibold text-indigo-200 w-fit mb-6">
+                <Stars className="w-3.5 h-3.5" />
+                <span>AI-Native learning in Bangla &amp; English</span>
               </div>
 
-              {/* Right Side: cover-image.png (displays without cropping) */}
-              <div className="flex justify-center items-center w-full lg:justify-end">
-                <div className="relative w-full max-w-[800px] h-[420px] sm:h-[540px] lg:h-[640px] rounded-3xl overflow-hidden shadow-2xl shadow-slate-200/50">
-                  <div className="relative w-full h-full rounded-2xl overflow-hidden">
-                    <Image
-                      src="/cover-image.png"
-                      alt="Student transformation: Before & After learning with NeuroQuest story-quests"
-                      fill
-                      priority
-                      className="object-contain"
-                    />
-                  </div>
-                </div>
+              <h1 className="font-serif text-5xl sm:text-6xl lg:text-7xl font-black tracking-tight text-white leading-[1.05]">
+                Learn Once. <br />
+                <span className="bg-gradient-to-r from-[#A5B4FC] to-[#C4B5FD] bg-clip-text text-transparent">
+                  Remember Forever.
+                </span>
+              </h1>
+              <h2 className="mt-4 text-2xl sm:text-3xl font-bold text-indigo-100 font-bengali leading-snug">
+                একবার শিখো। চিরকাল মনে রাখো।
+              </h2>
+
+              <p className="mt-6 text-slate-200 text-base sm:text-lg leading-relaxed max-w-2xl">
+                NeuroQuest &mdash; Bangladesh's first AI-native narrative learning platform for SSC, HSC, IELTS, and Medical learners. Defeat the cram-test-forget cycle through curriculum-accurate, personalized story quests (with flagship Science tracks fully active, and other tracks expanding).
+              </p>
+
+              <div className="flex flex-col sm:flex-row gap-4 mt-8">
+                <Link href="/signup" className="w-full sm:w-auto">
+                  <Button size="lg" className="w-full sm:w-auto bg-gradient-to-r from-[#6D5EF5] to-[#5B8DEF] text-white hover:shadow-lg hover:shadow-purple-500/40 transition-all duration-200 font-bold group">
+                    <span>Start Free</span>
+                    <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                  </Button>
+                </Link>
+                <Link href="/login" className="w-full sm:w-auto">
+                  <Button size="lg" variant="outline" className="w-full sm:w-auto border-white/30 text-white bg-transparent hover:bg-white/10 font-bold">
+                    Login
+                  </Button>
+                </Link>
+              </div>
+
+              <div className="flex items-center gap-6 mt-10 pt-6 text-xs font-semibold text-slate-300 border-t border-white/10">
+                <span className="flex items-center gap-1">
+                  <BookOpen className="w-4 h-4 text-indigo-300" />
+                  NCTB Curriculum mapped
+                </span>
+                <span>SSC &bull; HSC &bull; IELTS &bull; Medical</span>
               </div>
             </div>
           </div>
