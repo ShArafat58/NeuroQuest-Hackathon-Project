@@ -42,12 +42,12 @@ export default function LandingPage() {
                   Remember Forever.
                 </span>
               </h1>
-              <h2 className="mt-4 text-2xl sm:text-3xl font-bold text-indigo-100 font-bengali leading-snug">
+              <h2 className="mt-4 text-xl sm:text-2xl font-bold text-indigo-100 font-bengali leading-snug">
                 একবার শিখো। চিরকাল মনে রাখো।
               </h2>
 
               <p className="mt-6 text-slate-200 text-base sm:text-lg leading-relaxed max-w-2xl">
-                NeuroQuest &mdash; Bangladesh's first AI-native narrative learning platform for SSC, HSC, IELTS, and Medical learners. Defeat the cram-test-forget cycle through curriculum-accurate, personalized story quests (with flagship Science tracks fully active, and other tracks expanding).
+                NeuroQuest is Bangladeshi AI-native narrative learning platform built specifically to align with the national NCTB secondary and higher secondary science curricula. It uses immersive storyline quests, adaptive diagnostic profiling, and brain-science methodologies to counter academic performance drop-offs.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 mt-8">
@@ -87,7 +87,7 @@ export default function LandingPage() {
                 How <span className="bg-gradient-to-r from-[#6D5EF5] to-[#5B8DEF] bg-clip-text text-transparent">NeuroQuest Works</span>
               </h2>
               <p className="text-slate-500 text-base sm:text-lg leading-relaxed pt-1">
-                We synthesize advanced brain science with interactive narrative quests to make concepts unforgettable—starting with flagship Physics and Biology courses as we expand to other tracks.
+                We blend advanced brain science with interactive narrative quests to make concepts unforgettable with deep story-quests live for our flagship Physics and Biology chapters, and a growing library expanding across SSC, HSC, IELTS, and Medical tracks.
               </p>
             </div>
 
