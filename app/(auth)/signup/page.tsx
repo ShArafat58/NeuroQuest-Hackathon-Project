@@ -120,7 +120,7 @@ export default function SignupPage() {
             Remember Forever.
           </h2>
           <p className="text-white/80 text-sm leading-relaxed">
-            Stop studying to forget. Our personalized narrative learning quests integrate with spaced retrieval mechanics to convert complex concepts into natural, lifelong intuition—supporting multiple academic tracks with Science as our flagship.
+            Stop studying to forget. Our personalized story-quests turn complex concepts into natural, lasting intuition through active, story-based recall with automated spaced-retrieval reinforcement coming next — across our SSC, HSC, IELTS, and Medical learning tracks.
           </p>
 
           <div className="space-y-3 pt-6 border-t border-white/10 text-xs text-white/70">
