@@ -121,7 +121,7 @@ export default function LandingPage() {
                 </div>
                 <h3 className="text-xl sm:text-2xl font-extrabold text-slate-900 mb-4 tracking-tight">Achieve Your Goals</h3>
                 <p className="text-slate-500 text-sm sm:text-base leading-relaxed">
-                  Excel in your SSC and HSC board exams. Track concept-specific masteries and prepare diagnostic analytics to focus your study time on weak links.
+                  Hit your targets — from SSC and HSC boards to IELTS bands and medical foundations. Track concept-specific mastery and use diagnostic analytics to focus your study time on your weak spots.
                 </p>
               </div>
             </div>
