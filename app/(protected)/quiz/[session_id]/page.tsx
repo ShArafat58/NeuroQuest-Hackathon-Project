@@ -15,7 +15,7 @@ export default function QuizPage({ params }: { params: { session_id: string } })
   const [sessionData, setSessionData] = useState<any>(null);
   const [question, setQuestion] = useState<any>(null);
   const [loading, setLoading] = useState(true);
-  
+
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [timeLeft, setTimeLeft] = useState(60);
   const [submitting, setSubmitting] = useState(false);
@@ -67,7 +67,7 @@ export default function QuizPage({ params }: { params: { session_id: string } })
   // Timer
   useEffect(() => {
     if (loading || !question) return;
-    
+
     if (timeLeft <= 0) return; // Stop at 0
 
     const timer = setInterval(() => {
@@ -80,9 +80,9 @@ export default function QuizPage({ params }: { params: { session_id: string } })
   const handleNext = async () => {
     if (!selectedAnswer) return;
     setSubmitting(true);
-    
+
     const timeTaken = Math.floor((Date.now() - questionStartTime) / 1000);
-    
+
     try {
       const res = await fetch(`/api/quiz/${session_id}/answer`, {
         method: "POST",
@@ -105,7 +105,7 @@ export default function QuizPage({ params }: { params: { session_id: string } })
         // Complete session
         const completeRes = await fetch(`/api/quiz/${session_id}/complete`, { method: "POST" });
         if (!completeRes.ok) throw new Error("Failed to complete quiz");
-        
+
         router.push(`/quiz/${session_id}/results`);
       } else {
         await fetchQuestion();
@@ -126,7 +126,7 @@ export default function QuizPage({ params }: { params: { session_id: string } })
   }
 
   const isBangla = user.version === "bangla";
-  
+
   // Format numbers to Bangla
   const formatNum = (num: number) => {
     if (!isBangla) return num.toString();
@@ -153,13 +153,13 @@ export default function QuizPage({ params }: { params: { session_id: string } })
   return (
     <div className="min-h-screen bg-transparent py-12 px-4 flex flex-col items-center">
       <div className="w-full max-w-3xl flex-1 flex flex-col">
-        
+
         {/* Top Bar */}
         <div className="flex items-center justify-between mb-8">
-          <div className="text-lg font-bold text-slate-700">
+          <div className="text-lg font-bold text-white">
             {isBangla ? `প্রশ্ন ${currentQNum} / ${totalQNum}` : `Question ${currentQNum} / ${totalQNum}`}
           </div>
-          
+
           <div className={`flex items-center gap-2 text-xl font-bold bg-white px-4 py-2 rounded-full border shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 ${timerColor} ${timerPulse}`}>
             <Clock className="w-5 h-5" />
             <span>00:{timeLeft < 10 ? `0${timeLeft}` : timeLeft}</span>
@@ -168,7 +168,7 @@ export default function QuizPage({ params }: { params: { session_id: string } })
 
         {/* Main Quiz Card */}
         <AnimatePresence mode="wait">
-          <motion.div 
+          <motion.div
             key={question.id}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -199,8 +199,8 @@ export default function QuizPage({ params }: { params: { session_id: string } })
                     key={opt.id}
                     onClick={() => setSelectedAnswer(opt.id)}
                     className={`w-full text-left p-4 md:p-5 rounded-2xl border-2 transition-all duration-200 flex items-center gap-4 group
-                      ${isSelected 
-                        ? 'border-primary bg-primary text-white scale-[1.02] shadow-md' 
+                      ${isSelected
+                        ? 'border-primary bg-primary text-white scale-[1.02] shadow-md'
                         : 'border-gray-100 bg-white hover:border-primary/50 hover:bg-transparent text-slate-700 hover:-translate-y-0.5'
                       }
                     `}
@@ -211,7 +211,7 @@ export default function QuizPage({ params }: { params: { session_id: string } })
                       {opt.label}
                     </div>
                     <span className="text-lg font-medium">{opt.text}</span>
-                    
+
                     {isSelected && (
                       <CheckCircle2 className="w-6 h-6 ml-auto text-white" />
                     )}
@@ -226,11 +226,10 @@ export default function QuizPage({ params }: { params: { session_id: string } })
                 size="lg"
                 disabled={!selectedAnswer || submitting}
                 onClick={handleNext}
-                className={`px-8 h-14 text-lg font-bold ${
-                  selectedAnswer 
-                    ? 'bg-primary hover:bg-primary/90 text-white shadow-lg shadow-primary/25' 
+                className={`px-8 h-14 text-lg font-bold ${selectedAnswer
+                    ? 'bg-primary hover:bg-primary/90 text-white shadow-lg shadow-primary/25'
                     : 'bg-slate-100 text-slate-400'
-                }`}
+                  }`}
               >
                 {submitting && <Loader2 className="w-5 h-5 mr-2 animate-spin" />}
                 {isLastQuestion ? (

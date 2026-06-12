@@ -131,12 +131,13 @@ function ChapterSelectionContent() {
 
       <main className="flex-1 container mx-auto px-4 py-8 max-w-4xl">
         {/* Breadcrumb */}
-        <div className="mb-6 flex items-center text-sm font-medium text-slate-500">
-          <Link href="/dashboard" className="hover:text-primary transition-colors">
+        {/* Breadcrumb */}
+        <div className="mb-6 flex items-center text-sm font-medium text-white/70">
+          <Link href="/dashboard" className="hover:text-white transition-colors">
             {getClassName(user.current_class)}
           </Link>
           <span className="mx-2">/</span>
-          <Link href="/select-subject" className="text-primary hover:underline">
+          <Link href="/select-subject" className="text-white font-semibold hover:underline">
             {subjectName}
           </Link>
         </div>

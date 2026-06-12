@@ -97,7 +97,7 @@ export default function DashboardPage() {
       <div className="min-h-screen flex items-center justify-center bg-transparent">
         <div className="text-center space-y-3">
           <Loader2 className="w-10 h-10 animate-spin text-primary mx-auto" />
-          <p className="text-sm font-semibold text-slate-500">
+          <p className="text-sm font-semibold text-white">
             Loading your dashboard...
           </p>
         </div>

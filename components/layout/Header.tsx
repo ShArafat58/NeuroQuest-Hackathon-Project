@@ -154,12 +154,7 @@ export default function Header({ user: propUser }: HeaderProps) {
 
         {/* Right Side: Stats, Language & User Dropdown */}
         <div className="flex items-center gap-4">
-          <Link
-            href="/docs"
-            className="text-sm font-semibold text-slate-700 hover:text-[#6D5EF5] hover:bg-slate-50 transition-colors px-3 py-1.5 rounded-lg"
-          >
-            Overview
-          </Link>
+
 
           {/* Stats Display */}
           {user && (
