@@ -21,7 +21,7 @@
 |------|------|
 | **Shahriar Hossain Arafat** | Full-Stack Lead, Architecture |
 | **Tahsean Shuborna** | Product, Curriculum Design |
-| **Ritu (Meherun Nesa Nitu)** | Story Design, UX |
+| **Ritu (Meherun Nesa Nitu)** | Story Design, UX, Team Leader |
 
 ---
 
