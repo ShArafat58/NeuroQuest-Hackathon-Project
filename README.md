@@ -20,7 +20,6 @@
 | Name | Role |
 |------|------|
 | **Shahriar Hossain Arafat** | Full-Stack Lead, Architecture |
-| **Fahim** | Backend, AI Orchestration |
 | **Tahsean Shuborna** | Product, Curriculum Design |
 | **Ritu (Meherun Nesa Nitu)** | Story Design, UX |
 
